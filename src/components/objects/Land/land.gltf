@@ -145,23 +145,23 @@
     {
       "pbrMetallicRoughness": {
         "baseColorFactor": [
-          0.4666666666666667,
-          0.32941176470588235,
-          0.2784313725490196,
+          0.125,
+          0.125,
+          0.125,
           1
         ],
-        "metallicFactor": 0.5,
-        "roughnessFactor": 0.5
+        "metallicFactor": 0,
+        "roughnessFactor": 0
       },
       "name": "mat20"
     },
     {
       "pbrMetallicRoughness": {
         "baseColorFactor": [
-          0.5490196078431373,
-          0.7568627450980392,
-          0.28627450980392155,
-          1
+          0.5,
+          0.5,
+          0.5,
+          0
         ],
         "metallicFactor": 0.5,
         "roughnessFactor": 0.5
