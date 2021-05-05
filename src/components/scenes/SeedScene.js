@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Flower, Land, Trail } from 'objects';
+import { Flower, Trail, Book } from 'objects';
 import { BasicLights } from 'lights';
 
 class SeedScene extends Scene {
@@ -18,11 +18,11 @@ class SeedScene extends Scene {
         this.background = new Color(0xFFFFFF);
 
         // Add meshes to scene
-        // const land = new Land();
         const trail = new Trail();
+        const book = new Book();
         const flower = new Flower(this);
         const lights = new BasicLights();
-        this.add(flower, lights, trail);
+        this.add(flower, lights, trail, book);
     }
 
     addToUpdateList(object) {
