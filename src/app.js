@@ -53,3 +53,42 @@ const windowResizeHandler = () => {
 };
 windowResizeHandler();
 window.addEventListener('resize', windowResizeHandler, false);
+
+keyHandler();
+function keyHandler() {
+    window.addEventListener("keyup", handleKeyUp, true);
+    window.addEventListener("keydown", handleKeyDown, true);
+
+    const book = scene.getObjectByName('book');
+
+    function handleKeyUp(event) {
+        if (event.keyCode == 38 && book.state.vertical != -1) { // up
+            book.position.y = 1;
+            book.state.vertical = 0;
+        } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
+            book.position.y = 1;
+            book.state.vertical = 0;
+        } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
+            book.position.x = 0;
+            book.state.horizontal = 0;
+        } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
+            book.position.x = 0;
+            book.state.horizontal = 0;
+        }
+    }
+    function handleKeyDown(event) {
+        if (event.keyCode == 38 && book.state.vertical != -1) { // up
+            book.position.y = 2;
+            book.state.vertical = 1;
+        } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
+            book.position.y = 0;
+            book.state.vertical = -1;
+        } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
+            book.position.x = -1;
+            book.state.horizontal = 1;
+        } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
+            book.position.x = 1;
+            book.state.horizontal = -1;
+        }
+    }
+}

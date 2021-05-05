@@ -5,6 +5,11 @@ class Book extends Group {
         // Call parent Group() constructor
         super();
 
+        this.state = {
+            vertical : 0,
+            horizontal : 0,
+        };
+
         this.name = 'book';
         
         const geometry = new BoxGeometry(1, 1, 1);
@@ -13,8 +18,14 @@ class Book extends Group {
         this.position.y = 1;
         this.add(cube);
         console.log(this.position);
-        
     }
+
+    update(timeStamp) {
+
+        // Advance tween animations, if any exist
+        TWEEN.update();
+    }
+
 }
 
 export default Book;
