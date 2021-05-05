@@ -77,18 +77,22 @@ function keyHandler() {
         }
     }
     function handleKeyDown(event) {
-        if (event.keyCode == 38 && book.state.vertical != -1) { // up
+        if (event.keyCode == 38) { // up
             book.position.y = 2;
             book.state.vertical = 1;
-        } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
+            // console.log("up");
+        } else if (event.keyCode == 40) { // down
             book.position.y = 0;
             book.state.vertical = -1;
-        } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
+            // console.log("down");
+        } else if (event.keyCode == 39) { // right
             book.position.x = -1;
             book.state.horizontal = 1;
-        } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
+            // console.log("right");
+        } else if (event.keyCode == 37) { // left
             book.position.x = 1;
             book.state.horizontal = -1;
+            // console.log("left");
         }
     }
 }
