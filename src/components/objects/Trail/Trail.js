@@ -1,19 +1,17 @@
-import { Group } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './trail.gltf';
+import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
 class Trail extends Group {
     constructor() {
         // Call parent Group() constructor
         super();
 
-        const loader = new GLTFLoader();
-
         this.name = 'trail';
 
-        loader.load(MODEL, (gltf) => {
-            this.add(gltf.scene);
-        });
+        const geometry = new BoxGeometry(3, 0, 250);
+        const material = new MeshBasicMaterial({color: 0xaaaaaa});
+        const cube = new Mesh(geometry, material);
+        cube.position.z = 50;
+        this.add(cube);
     }
 }
 

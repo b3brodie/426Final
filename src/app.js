@@ -63,10 +63,10 @@ function keyHandler() {
 
     function handleKeyUp(event) {
         if (event.keyCode == 38 && book.state.vertical != -1) { // up
-            book.position.y = 1;
+            book.position.y = 0.5;
             book.state.vertical = 0;
         } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
-            book.position.y = 1;
+            book.position.y = 0.5;
             book.state.vertical = 0;
         } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
             book.position.x = 0;
@@ -78,7 +78,7 @@ function keyHandler() {
     }
     function handleKeyDown(event) {
         if (event.keyCode == 38) { // up
-            book.position.y = 2;
+            book.position.y = 1.5;
             book.state.vertical = 1;
             // console.log("up");
         } else if (event.keyCode == 40) { // down

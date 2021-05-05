@@ -11,11 +11,11 @@ class Book extends Group {
         };
 
         this.name = 'book';
-        
-        const geometry = new BoxGeometry(1, 1, 1);
+
+        const geometry = new BoxGeometry(1, 0.5, 1);
         const material = new MeshBasicMaterial({color: 0x44aa88});
         const cube = new Mesh(geometry, material);
-        this.position.y = 1;
+        this.position.y = 0.5;
         this.add(cube);
         console.log(this.position);
     }
