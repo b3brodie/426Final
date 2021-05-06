@@ -6,6 +6,10 @@ class Obstacle extends Group {
         // Call parent Group() constructor
         super();
 
+        this.state = {
+            dim : dims,
+        };
+
         this.name = 'obstacle';
         
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
@@ -16,6 +20,7 @@ class Obstacle extends Group {
 
         // Add self to parent's update list
         parent.addToUpdateList(this);
+        parent.addToCollisionList(this);
     }
 
     update() {
