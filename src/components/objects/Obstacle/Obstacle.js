@@ -1,4 +1,4 @@
-import { Group, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, Mesh } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 
 class Obstacle extends Group {
@@ -13,7 +13,7 @@ class Obstacle extends Group {
         this.name = 'obstacle';
         
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
-        const material = new MeshBasicMaterial({color: 0x444444});
+        const material = new MeshPhongMaterial({color: 0x444444});
         const obs = new Mesh(geometry, material);
         obs.position.y = 0.5;
         this.add(obs);
