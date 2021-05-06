@@ -62,37 +62,41 @@ function keyHandler() {
     const book = scene.getObjectByName('book');
 
     function handleKeyUp(event) {
-        if (event.keyCode == 38 && book.state.vertical != -1) { // up
-            book.position.y = 0.5;
-            book.state.vertical = 0;
-        } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
-            book.position.y = 0.5;
-            book.state.vertical = 0;
-        } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
-            book.position.x = 0;
-            book.state.horizontal = 0;
-        } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
-            book.position.x = 0;
-            book.state.horizontal = 0;
+        if (scene.state.playing){
+            if (event.keyCode == 38 && book.state.vertical != -1) { // up
+                book.position.y = 0.5;
+                book.state.vertical = 0;
+            } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
+                book.position.y = 0.5;
+                book.state.vertical = 0;
+            } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
+                book.position.x = 0;
+                book.state.horizontal = 0;
+            } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
+                book.position.x = 0;
+                book.state.horizontal = 0;
+            }
         }
     }
     function handleKeyDown(event) {
-        if (event.keyCode == 38) { // up
-            book.position.y = 1.5;
-            book.state.vertical = 1;
-            // console.log("up");
-        } else if (event.keyCode == 40) { // down
-            book.position.y = 0;
-            book.state.vertical = -1;
-            // console.log("down");
-        } else if (event.keyCode == 39) { // right
-            book.position.x = -1;
-            book.state.horizontal = 1;
-            // console.log("right");
-        } else if (event.keyCode == 37) { // left
-            book.position.x = 1;
-            book.state.horizontal = -1;
-            // console.log("left");
+        if (scene.state.playing) {
+            if (event.keyCode == 38) { // up
+                book.position.y = 1.5;
+                book.state.vertical = 1;
+                // console.log("up");
+            } else if (event.keyCode == 40) { // down
+                book.position.y = 0;
+                book.state.vertical = -1;
+                // console.log("down");
+            } else if (event.keyCode == 39) { // right
+                book.position.x = -1;
+                book.state.horizontal = 1;
+                // console.log("right");
+            } else if (event.keyCode == 37) { // left
+                book.position.x = 1;
+                book.state.horizontal = -1;
+                // console.log("left");
+            }
         }
     }
 }

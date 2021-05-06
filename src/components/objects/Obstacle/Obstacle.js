@@ -16,6 +16,7 @@ class Obstacle extends Group {
         const material = new MeshPhongMaterial({color: 0x444444});
         const obs = new Mesh(geometry, material);
         obs.position.y = 0.5;
+        this.position.z = -40;
         this.add(obs);
 
         // Add self to parent's update list

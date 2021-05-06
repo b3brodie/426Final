@@ -36,9 +36,12 @@ class Book extends Group {
         let oBox = {a:{x:oP.x - (oD.x/2),y:oP.y - (oD.y/2),z:oP.z - (oD.z/2)}, 
             b:{x:oP.x + (oD.x/2),y:oP.y + (oD.y/2),z:oP.z + (oD.z/2)}};  // a = lowerleft, b = upperright
 
-        let intersectX = ((tBox.a.x < oBox.b.x && tBox.a.x > oBox.a.x) || (tBox.b.x < oBox.b.x && tBox.b.x > oBox.a.x)) || ((tBox.a.x <= oBox.b.x && tBox.a.x >= oBox.a.x) && (tBox.b.x <= oBox.b.x && tBox.b.x >= oBox.a.x));
-        let intersectY = ((tBox.a.y < oBox.b.y && tBox.a.y > oBox.a.y) || (tBox.b.y < oBox.b.y && tBox.b.y > oBox.a.y)) || ((tBox.a.y <= oBox.b.y && tBox.a.y >= oBox.a.y) && (tBox.b.y <= oBox.b.y && tBox.b.y >= oBox.a.y));
-        let intersectZ = ((tBox.a.z < oBox.b.z && tBox.a.z > oBox.a.z) || (tBox.b.z < oBox.b.z && tBox.b.z > oBox.a.z)) || ((tBox.a.z <= oBox.b.z && tBox.a.z >= oBox.a.z) && (tBox.b.z <= oBox.b.z && tBox.b.z >= oBox.a.z));
+        let intersectX = ((tBox.a.x < oBox.b.x && tBox.a.x > oBox.a.x) || (tBox.b.x < oBox.b.x && tBox.b.x > oBox.a.x)) ||
+             ((tBox.a.x <= oBox.b.x && tBox.a.x >= oBox.a.x) && (tBox.b.x <= oBox.b.x && tBox.b.x >= oBox.a.x));
+        let intersectY = ((tBox.a.y < oBox.b.y && tBox.a.y > oBox.a.y) || (tBox.b.y < oBox.b.y && tBox.b.y > oBox.a.y)) || 
+            ((tBox.a.y <= oBox.b.y && tBox.a.y >= oBox.a.y) && (tBox.b.y <= oBox.b.y && tBox.b.y >= oBox.a.y));
+        let intersectZ = ((tBox.a.z < oBox.b.z && tBox.a.z > oBox.a.z) || (tBox.b.z < oBox.b.z && tBox.b.z > oBox.a.z)) || 
+            ((tBox.a.z <= oBox.b.z && tBox.a.z >= oBox.a.z) && (tBox.b.z <= oBox.b.z && tBox.b.z >= oBox.a.z));
 
         return intersectX && intersectY && intersectZ;
     }

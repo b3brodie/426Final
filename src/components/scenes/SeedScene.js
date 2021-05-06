@@ -15,6 +15,7 @@ class SeedScene extends Scene {
             updateList: [],
             collisionList: [],
             book: null,
+            playing: true,
         };
 
         // Set background to a nice color
@@ -42,14 +43,17 @@ class SeedScene extends Scene {
         const { updateList, collisionList, book } = this.state;
 
         // Call update for each object in the updateList
-        for (const obj of updateList) {
-            obj.update(timeStamp);
-        }
+        if (this.state.playing) {
+            for (const obj of updateList) {
+                obj.update(timeStamp);
+            }
 
-        for (const obj of collisionList) {
-            let hit = book.checkCollision(obj);
-            if (hit) {
-                console.log("hit");
+            for (const obj of collisionList) {
+                let hit = book.checkCollision(obj);
+                if (hit) {
+                    this.state.playing = false;
+                    break;
+                }
             }
         }
     }
