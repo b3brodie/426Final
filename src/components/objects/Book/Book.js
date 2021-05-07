@@ -56,7 +56,7 @@ class Book extends Group {
         if (this.state.vertical == 1) { // jump
             this.position.y += this.state.velocityY;
             this.state.velocityY -= 0.005;
-            if (this.position.y < initPos.y) { // hit ground
+            if (this.position.y < initPos.y && this.state.velocityY < 0) { // hit ground
                 this.position.y = initPos.y;
                 this.state.velocityY = 0;
                 this.state.vertical = 0;

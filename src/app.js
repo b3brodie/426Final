@@ -72,8 +72,8 @@ function keyHandler() {
 
     function handleKeyUp(event) {
         if (state == 0) {
-            if (event.keyCode == 32) {
-                state = 1;
+            if (event.keyCode == 32) { // space bar
+                state = 1; // starts game
             }
         } else if (state == 1) {
             if (playScene.state.playing){
@@ -89,7 +89,7 @@ function keyHandler() {
         if (state == 1) {
             if (playScene.state.playing) {
                 if (event.keyCode == 38) { // up
-                    if (book.state.vertical == 0) {
+                    if (book.state.vertical == 0 || book.state.vertical == -1) {
                         book.state.velocityY = 0.15;
                         book.state.vertical = 1;
                     }
