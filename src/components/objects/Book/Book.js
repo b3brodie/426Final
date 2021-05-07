@@ -1,8 +1,8 @@
 import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 
-let horizontalBound = 1;
-let verticalBound = 1;
+let horizontalBound = 1; // horizontal movement distance
+let verticalBound = 1; // vertical jump / slide distance
 let initPos = {x:0, y:0.5};
 let velocityX = 0.05;
 let eta = 0.01;
@@ -16,6 +16,7 @@ class Book extends Group {
             vertical : 0,
             horizontal : 0,
             dim : {x:1, y: 0.5, z:1},
+            velocityY : 0,
         };
 
         this.name = 'book';
@@ -35,6 +36,7 @@ class Book extends Group {
 
         const { horizontal } = this.state;
 
+        // horizontal movement
         if (horizontal == -1) { // moving left
             this.position.x += velocityX;
         } else if (horizontal == 1) { // moving right
@@ -50,11 +52,28 @@ class Book extends Group {
             }
         }
 
+        // vertical movement
+        if (this.state.vertical == 1) { // jump
+            this.position.y += this.state.velocityY;
+            this.state.velocityY -= 0.005;
+            if (this.position.y < initPos.y) { // hit ground
+                this.position.y = initPos.y;
+                this.state.velocityY = 0;
+                this.state.vertical = 0;
+            }
+        } else if (this.state.vertical == -1) { // slide
+
+        } else { // no movement
+
+        }
+
         if (this.position.x > initPos.x + horizontalBound) {
             this.position.x = initPos.x + horizontalBound;
         } else if (this.position.x < initPos.x - horizontalBound) {
             this.position.x = initPos.x - horizontalBound;
         }
+
+
 
         // Advance tween animations, if any exist
         TWEEN.update();

@@ -64,16 +64,14 @@ function keyHandler() {
     function handleKeyUp(event) {
         if (scene.state.playing){
             if (event.keyCode == 38 && book.state.vertical != -1) { // up
-                book.position.y = 0.5;
-                book.state.vertical = 0;
+                // book.position.y = 0.5;
+                // book.state.vertical = 0;
             } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
-                book.position.y = 0.5;
-                book.state.vertical = 0;
+                // book.position.y = 0.5;
+                // book.state.vertical = 0;
             } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
-                // book.position.x = 0;
                 book.state.horizontal = 0;
             } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
-                // book.position.x = 0;
                 book.state.horizontal = 0;
             }
         }
@@ -81,21 +79,17 @@ function keyHandler() {
     function handleKeyDown(event) {
         if (scene.state.playing) {
             if (event.keyCode == 38) { // up
-                book.position.y = 1.5;
-                book.state.vertical = 1;
-                // console.log("up");
+                if (book.state.vertical == 0) {
+                    book.state.velocityY = 0.15;
+                    book.state.vertical = 1;
+                }
             } else if (event.keyCode == 40) { // down
-                book.position.y = 0;
+                // book.position.y = 0;
                 book.state.vertical = -1;
-                // console.log("down");
             } else if (event.keyCode == 39) { // right
-                // book.position.x = -1;
                 book.state.horizontal = 1;
-                // console.log("right");
             } else if (event.keyCode == 37) { // left
-                // book.position.x = 1;
                 book.state.horizontal = -1;
-                // console.log("left");
             }
         }
     }
