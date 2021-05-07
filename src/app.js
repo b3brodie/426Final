@@ -85,7 +85,10 @@ function keyHandler() {
                 }
             } else if (event.keyCode == 40) { // down
                 // book.position.y = 0;
-                book.state.vertical = -1;
+                if (book.state.vertical == 0) {
+                    book.state.velocityY = -0.01;
+                    book.state.vertical = -1;
+                }
             } else if (event.keyCode == 39) { // right
                 book.state.horizontal = 1;
             } else if (event.keyCode == 37) { // left

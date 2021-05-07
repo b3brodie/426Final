@@ -2,7 +2,7 @@ import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 
 let horizontalBound = 1; // horizontal movement distance
-let verticalBound = 1; // vertical jump / slide distance
+let slideDist = 0.25; // vertical jump / slide distance
 let initPos = {x:0, y:0.5};
 let velocityX = 0.05;
 let eta = 0.01;
@@ -62,7 +62,20 @@ class Book extends Group {
                 this.state.vertical = 0;
             }
         } else if (this.state.vertical == -1) { // slide
-
+            if (this.state.velocityY < 0) { // going down
+                this.position.y += this.state.velocityY;
+                this.state.velocityY -= 0.001;
+                if (this.state.velocityY < -0.2 ) { // slide end
+                    this.state.velocityY = 0.1;
+                } 
+            } else { // going up
+                this.position.y += this.state.velocityY;
+                if (this.position.y > initPos.y) { // returned to standing
+                    this.position.y = initPos.y;
+                    this.state.velocityY = 0;
+                    this.state.vertical = 0;
+                }
+            }
         } else { // no movement
 
         }
@@ -71,6 +84,10 @@ class Book extends Group {
             this.position.x = initPos.x + horizontalBound;
         } else if (this.position.x < initPos.x - horizontalBound) {
             this.position.x = initPos.x - horizontalBound;
+        }
+
+        if (this.position.y < initPos.y - slideDist) {
+            this.position.y = initPos.y - slideDist;
         }
 
 
