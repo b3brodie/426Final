@@ -45,12 +45,12 @@ class TitleText extends Group {
                 bevelSegments: 5
             });
     
-            var mesh1 = new Mesh(instructions, material);
-            mesh1.position.set(10, -6, 20);
-            mesh1.rotation.set(0, Math.PI, 0);
-            mesh1.scale.multiplyScalar(0.01);
-            mesh1.castShadow = true;
-            parent.add(mesh1);
+            var mesh2 = new Mesh(instructions, material);
+            mesh2.position.set(10, -6, 20);
+            mesh2.rotation.set(0, Math.PI, 0);
+            mesh2.scale.multiplyScalar(0.01);
+            mesh2.castShadow = true;
+            parent.add(mesh2);
         });
 
     }

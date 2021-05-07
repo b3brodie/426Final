@@ -4,3 +4,4 @@ export * from './Trail';
 export * from './Book';
 export * from './Obstacle';
 export * from './TitleText';
+export * from './Score';

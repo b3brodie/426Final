@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Trail, Book, Obstacle } from 'objects';
+import { Trail, Book, Obstacle, Score } from 'objects';
 import { BasicLights } from 'lights';
 
 class PlayScene extends Scene {
@@ -14,6 +14,7 @@ class PlayScene extends Scene {
             gui: new Dat.GUI(), // Create GUI for scene
             updateList: [],
             collisionList: [],
+            scoreDisplay: null,
             book: null,
             playing: true,
             continuous: true,
@@ -29,9 +30,10 @@ class PlayScene extends Scene {
         const obs1 = new Obstacle(this, {x:1, y:1, z:0.5}, 0);
         const obs2 = new Obstacle(this, {x:1, y:2, z:0.5}, 0);
         const slidingObstacle = new Obstacle(this, {x:3, y:2.5, z:1}, 1);
+        const score = new Score(this);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, trail, book, obs1, obs2, slidingObstacle);
+        this.add(lights, trail, book, obs1, obs2, slidingObstacle, score);
         this.state.gui.add(this.state, 'continuous');
     }
 
@@ -44,7 +46,7 @@ class PlayScene extends Scene {
     }
 
     update(timeStamp) {
-        const { updateList, collisionList, book, continuous } = this.state;
+        const { updateList, collisionList, book, continuous, scoreDisplay } = this.state;
 
         if (continuous) {
             this.state.playing = true;
@@ -58,6 +60,8 @@ class PlayScene extends Scene {
             for (const obj of updateList) {
                 obj.update(timeStamp, this.state.speed);
             }
+
+            scoreDisplay.update();
 
             for (const obj of collisionList) {
                 let hit = book.checkCollision(obj);
