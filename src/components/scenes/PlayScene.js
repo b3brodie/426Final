@@ -3,7 +3,7 @@ import { Scene, Color } from 'three';
 import { Trail, Book, Obstacle } from 'objects';
 import { BasicLights } from 'lights';
 
-class SeedScene extends Scene {
+class PlayScene extends Scene {
 
     constructor() {
         // Call parent Scene() constructor
@@ -66,4 +66,4 @@ class SeedScene extends Scene {
     }
 }
 
-export default SeedScene;
+export default PlayScene;

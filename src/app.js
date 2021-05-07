@@ -8,10 +8,13 @@
  */
 import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { SeedScene } from 'scenes';
+import { PlayScene, TitleScene } from 'scenes';
+
+let state = 0;
 
 // Initialize core ThreeJS components
-const scene = new SeedScene();
+const playScene = new PlayScene();
+const titleScene = new TitleScene();
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });
 
@@ -37,9 +40,15 @@ controls.update();
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
-    controls.update();
-    renderer.render(scene, camera);
-    scene.update && scene.update(timeStamp);
+    if (state == 0) {
+        controls.update();
+        renderer.render(titleScene, camera);
+        titleScene.update && titleScene.update(timeStamp);
+    } else if (state == 1) {
+        controls.update();
+        renderer.render(playScene, camera);
+        playScene.update && playScene.update(timeStamp);
+    }
     window.requestAnimationFrame(onAnimationFrameHandler);
 };
 window.requestAnimationFrame(onAnimationFrameHandler);
@@ -59,35 +68,41 @@ function keyHandler() {
     window.addEventListener("keyup", handleKeyUp, true);
     window.addEventListener("keydown", handleKeyDown, true);
 
-    const book = scene.getObjectByName('book');
+    const book = playScene.getObjectByName('book');
 
     function handleKeyUp(event) {
-        if (scene.state.playing){
-            if (event.keyCode == 38 && book.state.vertical != -1) { // up
-            } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
-            } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
-                book.state.horizontal = 0;
-            } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
-                book.state.horizontal = 0;
+        if (state == 0) {
+            if (event.keyCode == 32) {
+                state = 1;
+            }
+        } else if (state == 1) {
+            if (playScene.state.playing){
+                if (event.keyCode == 39 && book.state.horizontal != -1) { // right
+                    book.state.horizontal = 0;
+                } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
+                    book.state.horizontal = 0;
+                }
             }
         }
     }
     function handleKeyDown(event) {
-        if (scene.state.playing) {
-            if (event.keyCode == 38) { // up
-                if (book.state.vertical == 0) {
-                    book.state.velocityY = 0.15;
-                    book.state.vertical = 1;
+        if (state == 1) {
+            if (playScene.state.playing) {
+                if (event.keyCode == 38) { // up
+                    if (book.state.vertical == 0) {
+                        book.state.velocityY = 0.15;
+                        book.state.vertical = 1;
+                    }
+                } else if (event.keyCode == 40) { // down
+                    if (book.state.vertical == 0) {
+                        book.state.velocityY = -0.01;
+                        book.state.vertical = -1;
+                    }
+                } else if (event.keyCode == 39) { // right
+                    book.state.horizontal = 1;
+                } else if (event.keyCode == 37) { // left
+                    book.state.horizontal = -1;
                 }
-            } else if (event.keyCode == 40) { // down
-                if (book.state.vertical == 0) {
-                    book.state.velocityY = -0.01;
-                    book.state.vertical = -1;
-                }
-            } else if (event.keyCode == 39) { // right
-                book.state.horizontal = 1;
-            } else if (event.keyCode == 37) { // left
-                book.state.horizontal = -1;
             }
         }
     }
