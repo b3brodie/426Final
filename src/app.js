@@ -64,11 +64,7 @@ function keyHandler() {
     function handleKeyUp(event) {
         if (scene.state.playing){
             if (event.keyCode == 38 && book.state.vertical != -1) { // up
-                // book.position.y = 0.5;
-                // book.state.vertical = 0;
             } else if (event.keyCode == 40 && book.state.vertical != 1) { // down
-                // book.position.y = 0.5;
-                // book.state.vertical = 0;
             } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
                 book.state.horizontal = 0;
             } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
@@ -84,7 +80,6 @@ function keyHandler() {
                     book.state.vertical = 1;
                 }
             } else if (event.keyCode == 40) { // down
-                // book.position.y = 0;
                 if (book.state.vertical == 0) {
                     book.state.velocityY = -0.01;
                     book.state.vertical = -1;

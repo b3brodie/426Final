@@ -65,7 +65,7 @@ class Book extends Group {
             if (this.state.velocityY < 0) { // going down
                 this.position.y += this.state.velocityY;
                 this.state.velocityY -= 0.001;
-                if (this.state.velocityY < -0.2 ) { // slide end
+                if (this.state.velocityY < -0.15 ) { // slide end
                     this.state.velocityY = 0.1;
                 } 
             } else { // going up
@@ -89,8 +89,6 @@ class Book extends Group {
         if (this.position.y < initPos.y - slideDist) {
             this.position.y = initPos.y - slideDist;
         }
-
-
 
         // Advance tween animations, if any exist
         TWEEN.update();

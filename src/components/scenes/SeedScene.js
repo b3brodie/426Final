@@ -25,11 +25,12 @@ class SeedScene extends Scene {
         // Add meshes to scene
         const trail = new Trail();
         const book = new Book(this);
-        const obs1 = new Obstacle(this, {x:1, y:1, z:0.5});
-        const obs2 = new Obstacle(this, {x:1, y:2, z:0.5});
+        const obs1 = new Obstacle(this, {x:1, y:1, z:0.5}, 0);
+        const obs2 = new Obstacle(this, {x:1, y:2, z:0.5}, 0);
+        const slidingObstacle = new Obstacle(this, {x:3, y:2.5, z:1}, 1);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, trail, book, obs1, obs2);
+        this.add(lights, trail, book, obs1, obs2, slidingObstacle);
         this.state.gui.add(this.state, 'continuous');
     }
 
