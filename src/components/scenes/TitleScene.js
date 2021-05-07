@@ -16,11 +16,11 @@ class TitleScene extends Scene {
         };
 
         // Set background to a nice color
-        this.background = new Color(0xAAAAAA);
+        this.background = new Color(0xFFFFFF);
 
         // Add meshes to scene
         const lights = new BasicLights();
-        const header = new TitleText();
+        const header = new TitleText(this);
         this.add(lights, header);
     }
 
