@@ -29,8 +29,8 @@ class Obstacle extends Group {
         parent.addToCollisionList(this);
     }
 
-    update() {
-        this.position.z -= 0.5;
+    update(timeStamp, speed) {
+        this.position.z -= speed;
         if (this.position.z < -30) {
             if (this.state.type == 0) {
                 let pos = Math.floor(Math.random() * 3) - 1;

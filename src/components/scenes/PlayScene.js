@@ -16,7 +16,8 @@ class PlayScene extends Scene {
             collisionList: [],
             book: null,
             playing: true,
-            continuous: true, // only defaults to true for testing
+            continuous: true,
+            speed: 0.5,
         };
 
         // Set background to a nice color
@@ -51,8 +52,11 @@ class PlayScene extends Scene {
 
         // Call update for each object in the updateList
         if (this.state.playing) {
+            if (this.state.speed < 1) {
+                this.state.speed += 0.0001
+            }
             for (const obj of updateList) {
-                obj.update(timeStamp);
+                obj.update(timeStamp, this.state.speed);
             }
 
             for (const obj of collisionList) {

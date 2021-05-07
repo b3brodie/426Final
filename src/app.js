@@ -10,7 +10,7 @@ import { WebGLRenderer, PerspectiveCamera, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PlayScene, TitleScene } from 'scenes';
 
-let state = 0;
+let state = 0; // game state
 
 // Initialize core ThreeJS components
 const playScene = new PlayScene();
