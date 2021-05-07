@@ -70,10 +70,10 @@ function keyHandler() {
                 book.position.y = 0.5;
                 book.state.vertical = 0;
             } else if (event.keyCode == 39 && book.state.horizontal != -1) { // right
-                book.position.x = 0;
+                // book.position.x = 0;
                 book.state.horizontal = 0;
             } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
-                book.position.x = 0;
+                // book.position.x = 0;
                 book.state.horizontal = 0;
             }
         }
@@ -89,11 +89,11 @@ function keyHandler() {
                 book.state.vertical = -1;
                 // console.log("down");
             } else if (event.keyCode == 39) { // right
-                book.position.x = -1;
+                // book.position.x = -1;
                 book.state.horizontal = 1;
                 // console.log("right");
             } else if (event.keyCode == 37) { // left
-                book.position.x = 1;
+                // book.position.x = 1;
                 book.state.horizontal = -1;
                 // console.log("left");
             }

@@ -1,7 +1,14 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
+import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+
+let horizontalBound = 1;
+let verticalBound = 1;
+let initPos = {x:0, y:0.5};
+let velocityX = 0.05;
+let eta = 0.01;
 
 class Book extends Group {
-    constructor() {
+    constructor(parent) {
         // Call parent Group() constructor
         super();
 
@@ -15,12 +22,39 @@ class Book extends Group {
 
         const geometry = new BoxGeometry(this.state.dim.x, this.state.dim.y, this.state.dim.z);
         const material = new MeshPhongMaterial({color: 0x44aa88});
-        const cube = new Mesh(geometry, material);
-        this.position.y = 0.5;
-        this.add(cube);
+        const book = new Mesh(geometry, material);
+        this.position.x = initPos.x;
+        this.position.y = initPos.y;
+        this.add(book);
+
+        // Add self to parent's update list
+        parent.addToUpdateList(this);
     }
 
     update(timeStamp) {
+
+        const { horizontal } = this.state;
+
+        if (horizontal == -1) { // moving left
+            this.position.x += velocityX;
+        } else if (horizontal == 1) { // moving right
+            this.position.x -= velocityX;
+        } else { // moving towards center
+            if (this.position.x < initPos.x) {
+                this.position.x += velocityX;
+            } else if (this.position.x > initPos.x) {
+                this.position.x -= velocityX;
+            }
+            if (this.position.x > 0 - eta && this.position.x < 0 + eta) {
+                this.position.x = 0;
+            }
+        }
+
+        if (this.position.x > initPos.x + horizontalBound) {
+            this.position.x = initPos.x + horizontalBound;
+        } else if (this.position.x < initPos.x - horizontalBound) {
+            this.position.x = initPos.x - horizontalBound;
+        }
 
         // Advance tween animations, if any exist
         TWEEN.update();

@@ -16,6 +16,7 @@ class SeedScene extends Scene {
             collisionList: [],
             book: null,
             playing: true,
+            continuous: true, // only defaults to true for testing
         };
 
         // Set background to a nice color
@@ -23,12 +24,13 @@ class SeedScene extends Scene {
 
         // Add meshes to scene
         const trail = new Trail();
-        const book = new Book();
+        const book = new Book(this);
         const obs1 = new Obstacle(this, {x:1, y:1, z:0.5});
         const obs2 = new Obstacle(this, {x:1, y:2, z:0.5});
         const lights = new BasicLights();
         this.state.book = book;
         this.add(lights, trail, book, obs1, obs2);
+        this.state.gui.add(this.state, 'continuous');
     }
 
     addToUpdateList(object) {
@@ -40,7 +42,11 @@ class SeedScene extends Scene {
     }
 
     update(timeStamp) {
-        const { updateList, collisionList, book } = this.state;
+        const { updateList, collisionList, book, continuous } = this.state;
+
+        if (continuous) {
+            this.state.playing = true;
+        }
 
         // Call update for each object in the updateList
         if (this.state.playing) {
