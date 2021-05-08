@@ -20,6 +20,10 @@ class Obstacle extends Group {
             this.position.y = 0.5;
         } else if (type == 1) {
             this.position.y = 1.75;
+        } else if (type == 2) {
+            this.position.y = 0.5;
+        } else if (type == 3) {
+            this.position.y = 1.5;
         }
         this.resetZ();
         this.add(obs);
@@ -32,7 +36,7 @@ class Obstacle extends Group {
     update(timeStamp, speed) {
         this.position.z -= speed;
         if (this.position.z < -30) {
-            if (this.state.type == 0) {
+            if (this.state.type == 0 || this.state.type == 3) {
                 let pos = Math.floor(Math.random() * 3) - 1;
                 this.position.x = pos;
             }
