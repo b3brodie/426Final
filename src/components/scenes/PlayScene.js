@@ -2,6 +2,7 @@ import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
 import { Trail, Book, Obstacle, Score } from 'objects';
 import { BasicLights } from 'lights';
+import Land from '../objects/Land/Land';
 
 class PlayScene extends Scene {
 
@@ -25,7 +26,19 @@ class PlayScene extends Scene {
         this.background = new Color(0xFFFFFF);
 
         // Add meshes to scene
-        const trail = new Trail();
+        const trail1 = new Trail(this, 50);
+        const trail2 = new Trail(this, 200);
+        const trail3 = new Trail(this, 350);
+        //const trail4 = new Trail(this, 0);
+
+
+        const land1 = new Land(this, 50, false);
+        const land2 = new Land(this, 150, false);
+        const land3 = new Land(this, 250, false);
+        const land4 = new Land(this, 350, true);
+        //const land5 = new Land(this, 250);
+
+
         const book = new Book(this);
         const longObstacle = new Obstacle(this, {x:1, y:1, z:10}, 0);
         const tallObstacle = new Obstacle(this, {x:1, y:3, z:0.5}, 3);
@@ -34,7 +47,11 @@ class PlayScene extends Scene {
         const score = new Score(this);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, trail, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle);
+        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle);
+        // ad trail fragments
+        this.add(trail1, trail2, trail3);
+        // add land fragments        
+        this.add(land1, land2, land3, land4);
         this.state.gui.add(this.state, 'continuous');
     }
 
