@@ -9,7 +9,7 @@ class ScorePickup extends Group {
         super();
 
         this.state = {
-            dim : {x:1, y:0.5, z:0.5},
+            dim : {x:1, y:0.5, z:1},
         };
 
         this.name = 'obstacle';
@@ -37,9 +37,12 @@ class ScorePickup extends Group {
         TWEEN.update();
     }
 
+    // avoid is an array of objects that this object should not be close to
     resetZ() {
         let variance = Math.random() * 150;
         this.position.z = 150 + variance;
+        let pos = Math.floor(Math.random() * 3) - 1;
+        this.position.x = pos;
     }
 
 }

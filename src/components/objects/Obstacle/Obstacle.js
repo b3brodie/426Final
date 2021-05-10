@@ -9,6 +9,7 @@ class Obstacle extends Group {
         this.state = {
             dim : dims,
             type : type,
+            avoid : [],
         };
 
         this.name = 'obstacle';
@@ -33,6 +34,10 @@ class Obstacle extends Group {
         parent.addToCollisionList(this);
     }
 
+    addToAvoid(obj) {
+        this.state.avoid.push(obj);
+    }
+
     update(timeStamp, speed) {
         this.position.z -= speed;
         if (this.position.z < -30) {
@@ -49,6 +54,14 @@ class Obstacle extends Group {
     resetZ() {
         let variance = Math.random() * 150;
         this.position.z = 150 + variance;
+        if (this.state.avoid != undefined) {
+            for (const obj of this.state.avoid) {
+                if (Math.abs(this.position.z - obj.position.z) < 30) {
+                    console.log("PUSHING FURTHER")
+                    this.position.z += 70;
+                }
+            } 
+        }
     }
 
 }

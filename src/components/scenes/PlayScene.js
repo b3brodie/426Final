@@ -44,6 +44,8 @@ class PlayScene extends Scene {
         const tallObstacle = new Obstacle(this, {x:1, y:3, z:0.5}, 3);
         const jumpObstacle = new Obstacle(this, {x:3, y:1, z:1}, 2);
         const slidingObstacle = new Obstacle(this, {x:3, y:2.5, z:1}, 1);
+        jumpObstacle.addToAvoid(slidingObstacle);
+        slidingObstacle.addToAvoid(jumpObstacle);
         const sP1 = new ScorePickup(this);
         const sP2 = new ScorePickup(this);
         const sP3 = new ScorePickup(this);
@@ -90,7 +92,6 @@ class PlayScene extends Scene {
                 let hit = book.checkCollision(obj);
                 if (hit) {
                     if (obj instanceof Obstacle) {
-                        console.log(obj instanceof Obstacle)
                         this.state.playing = false;
                         break;
                     } else if (obj instanceof ScorePickup) {
