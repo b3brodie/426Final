@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Trail, Book, Obstacle, Score } from 'objects';
+import { Trail, Book, Obstacle, Score, ScorePickup } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
 
@@ -44,10 +44,15 @@ class PlayScene extends Scene {
         const tallObstacle = new Obstacle(this, {x:1, y:3, z:0.5}, 3);
         const jumpObstacle = new Obstacle(this, {x:3, y:1, z:1}, 2);
         const slidingObstacle = new Obstacle(this, {x:3, y:2.5, z:1}, 1);
+        const sP1 = new ScorePickup(this);
+        const sP2 = new ScorePickup(this);
+        const sP3 = new ScorePickup(this);
+        const sP4 = new ScorePickup(this);
+        const sP5 = new ScorePickup(this);
         const score = new Score(this);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle);
+        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         // add land fragments        
@@ -84,8 +89,14 @@ class PlayScene extends Scene {
             for (const obj of collisionList) {
                 let hit = book.checkCollision(obj);
                 if (hit) {
-                    this.state.playing = false;
-                    break;
+                    if (obj instanceof Obstacle) {
+                        console.log(obj instanceof Obstacle)
+                        this.state.playing = false;
+                        break;
+                    } else if (obj instanceof ScorePickup) {
+                        obj.resetZ();
+                        scoreDisplay.increase(10);
+                    }
                 }
             }
         }

@@ -89,6 +89,10 @@ class Score extends Group {
             this.state.scoreMesh.geometry = score;
         }
     }
+
+    increase(val) {
+        this.state.scoreVal += val;
+    }
 }
 
 export default Score;
