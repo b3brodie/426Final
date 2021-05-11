@@ -20,9 +20,9 @@ class TitleScene extends Scene {
 
         // Add meshes to scene
         const lights = new BasicLights();
-        // const header = new TitleText(this);
-        // this.add(lights, header);
-        this.add(lights);
+        const header = new TitleText(this);
+        this.add(lights, header);
+        // this.add(lights);
     }
 
     addToUpdateList(object) {

@@ -8,7 +8,7 @@ class TitleText extends Group {
         this.name = 'titletext';
 
         const loader = new FontLoader();
-        loader.load('./src/style/no_virus.json', function(font) {
+        loader.load('font.json', function(font) {
             var material = new MeshPhongMaterial({color: 0x000000});
             material.shininess = 150;
     
