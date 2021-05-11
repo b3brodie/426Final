@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Trail, Book, Obstacle, Score, ScorePickup } from 'objects';
+import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
 
@@ -38,6 +38,18 @@ class PlayScene extends Scene {
         const land4 = new Land(this, 350, true);
         //const land5 = new Land(this, 250);
 
+        const wall1 = new Wall(this, 100, false);
+        const wall2 = new Wall(this, 250, false);
+        const wall3 = new Wall(this, 350, true);
+        
+        const wall4 = new Wall(this, 350, true);
+
+        const desk1 = new Desk(this, 15);
+        const desk2 = new Desk(this, 5); 
+        const board = new Board(this, 25);
+
+        // Magician
+        const mag = new Magician(this, 1);
 
         const book = new Book(this);
         const longObstacle = new Obstacle(this, {x:1, y:1, z:10}, 0);
@@ -57,6 +69,10 @@ class PlayScene extends Scene {
         this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
+        this.add(desk1, desk2, board);
+        this.add(mag);
+
+        this.add(wall1, wall2, wall3);
         // add land fragments        
         this.add(land1, land2, land3, land4);
         this.state.gui.add(this.state, 'continuous');

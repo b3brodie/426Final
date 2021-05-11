@@ -1,5 +1,8 @@
 import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import MODEL from './book1.glb';
+
 
 let horizontalBound = 1; // horizontal movement distance
 let slideDist = 0.25; // vertical jump / slide distance
@@ -21,12 +24,26 @@ class Book extends Group {
 
         this.name = 'book';
 
+         // Load object
+         const loader = new GLTFLoader();
+         loader.load(MODEL, (gltf) => {
+             let scene = gltf.scene;
+             scene.scale.multiplyScalar(3.5);
+             this.position.x = initPos.x;
+             this.position.y = initPos.y;
+             this.position.z = 1;
+             scene.rotateX(Math.PI + Math.PI / 3);
+             //scene.rotateY(Math.PI);
+             this.add(scene);
+         });
+        /*
         const geometry = new BoxGeometry(this.state.dim.x, this.state.dim.y, this.state.dim.z);
         const material = new MeshPhongMaterial({color: 0x44aa88});
         const book = new Mesh(geometry, material);
         this.position.x = initPos.x;
         this.position.y = initPos.y;
         this.add(book);
+        */
 
         // Add self to parent's update list
         parent.addToUpdateList(this);
@@ -62,13 +79,13 @@ class Book extends Group {
                 this.state.vertical = 0;
             }
         } else if (this.state.vertical == -1) { // slide
-            if (this.state.velocityY < 0) { // going down
+            if (this.state.velocityY < 0) { // going down           
                 this.position.y += this.state.velocityY;
                 this.state.velocityY -= 0.001;
                 if (this.state.velocityY < -0.15 ) { // slide end
                     this.state.velocityY = 0.1;
                 } 
-            } else { // going up
+            } else { // going up                
                 this.position.y += this.state.velocityY;
                 if (this.position.y > initPos.y) { // returned to standing
                     this.position.y = initPos.y;

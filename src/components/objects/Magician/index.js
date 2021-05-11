@@ -1,0 +1,1 @@
+export { default as Magician } from './Magician.js';

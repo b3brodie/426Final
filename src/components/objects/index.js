@@ -6,3 +6,7 @@ export * from './Obstacle';
 export * from './TitleText';
 export * from './Score';
 export * from './ScorePickup';
+export * from './Desk';
+export * from './Board';
+export * from './Wall';
+export * from './Magician';

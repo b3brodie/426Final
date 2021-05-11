@@ -1,7 +1,7 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
-
-
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import MODEL from './star.glb';
 
 class ScorePickup extends Group {
     constructor(parent) {
@@ -12,14 +12,25 @@ class ScorePickup extends Group {
             dim : {x:1, y:0.5, z:1},
         };
 
-        this.name = 'obstacle';
+        this.name = 'reward';
         
+        // Load object
+        const loader = new GLTFLoader();
+        loader.load(MODEL, (gltf) => {
+            let scene = gltf.scene;
+            scene.scale.multiplyScalar(4.0);
+            this.position.y = 0.5;
+            scene.rotateY(Math.PI);
+            this.add(scene);
+        });
+        /*
         const geometry = new BoxGeometry(this.state.dim.x, this.state.dim.y, this.state.dim.z);
         const material = new MeshPhongMaterial({color: 0x43AC1D});
         const obs = new Mesh(geometry, material);
         this.position.y = 0.5;
         this.resetZ();
         this.add(obs);
+        */
 
         // Add self to parent's update list
         parent.addToUpdateList(this);
