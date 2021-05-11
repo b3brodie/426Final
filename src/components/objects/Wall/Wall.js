@@ -17,7 +17,7 @@ class Wall extends Group {
         texture.wrapS = RepeatWrapping;
         texture.repeat.set(70, 70);
 
-        const geometry = new BoxGeometry(0.15, 350, 350);
+        const geometry = new BoxGeometry(0.15, 100, 250);
         const material = new MeshBasicMaterial({ map: texture });
         const cubeL = new Mesh(geometry, material);
         const cubeR = new Mesh(geometry, material);
@@ -51,8 +51,8 @@ class Wall extends Group {
             return;
         }
         this.position.z -= speed;
-        if (this.position.z < -150) {
-            this.position.z = 250;
+        if (this.position.z < -90) {
+            this.position.z = 200;
         }
         // Advance tween animations, if any exist
         TWEEN.update();
