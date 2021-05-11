@@ -12,13 +12,13 @@ class PlayScene extends Scene {
 
         // Init state
         this.state = {
-            gui: new Dat.GUI(), // Create GUI for scene
+            // gui: new Dat.GUI(), // Create GUI for scene
             updateList: [],
             collisionList: [],
             scoreDisplay: null,
             book: null,
             playing: true,
-            continuous: true,
+            continuous: false,
             speed: 0.5,
         };
 
@@ -76,7 +76,7 @@ class PlayScene extends Scene {
         this.add(wall1, wall2, wall3);
         // add land fragments        
         this.add(land1, land2, land3, land4);
-        this.state.gui.add(this.state, 'continuous');
+        // this.state.gui.add(this.state, 'continuous');
     }
 
     addToUpdateList(object) {
