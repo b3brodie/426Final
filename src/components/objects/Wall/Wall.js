@@ -1,6 +1,6 @@
 import { Group, Color, BoxGeometry, MeshStandardMaterial, Mesh, PlaneGeometry, MeshBasicMaterial, RepeatWrapping, TextureLoader } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
-import texture1 from './textures/floor3.jpg';
+import texture1 from './textures/4.jpg';
 
 class Wall extends Group {
     constructor(parent, z, last) {
