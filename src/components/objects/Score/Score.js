@@ -18,7 +18,7 @@ class Score extends Group {
         let temp = this;
 
         const loader = new FontLoader();
-        loader.load('src/style/no_virus.json', function(font) {
+        loader.load('./src/style/no_virus.json', function(font) {
             var material = new MeshPhongMaterial({color: 0x000000});
             material.shininess = 150;
     
