@@ -58,15 +58,16 @@ class PlayScene extends Scene {
         const slidingObstacle = new Obstacle(this, {x:3, y:2.5, z:1}, 1);
         jumpObstacle.addToAvoid(slidingObstacle);
         slidingObstacle.addToAvoid(jumpObstacle);
-        const sP1 = new ScorePickup(this);
-        const sP2 = new ScorePickup(this);
-        const sP3 = new ScorePickup(this);
-        const sP4 = new ScorePickup(this);
-        const sP5 = new ScorePickup(this);
-        const score = new Score(this);
+        // const sP1 = new ScorePickup(this);
+        // const sP2 = new ScorePickup(this);
+        // const sP3 = new ScorePickup(this);
+        // const sP4 = new ScorePickup(this);
+        // const sP5 = new ScorePickup(this);
+        // const score = new Score(this);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
+        // this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
+        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, jumpObstacle);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         this.add(desk1, desk2, board);
@@ -102,7 +103,7 @@ class PlayScene extends Scene {
                 obj.update(timeStamp, this.state.speed);
             }
 
-            scoreDisplay.update();
+            // scoreDisplay.update();
 
             for (const obj of collisionList) {
                 let hit = book.checkCollision(obj);
@@ -110,10 +111,11 @@ class PlayScene extends Scene {
                     if (obj instanceof Obstacle) {
                         this.state.playing = false;
                         break;
-                    } else if (obj instanceof ScorePickup) {
-                        obj.resetZ();
-                        scoreDisplay.increase(10);
-                    }
+                    } 
+                    // else if (obj instanceof ScorePickup) {
+                    //     obj.resetZ();
+                    //     scoreDisplay.increase(10);
+                    // }
                 }
             }
         }
