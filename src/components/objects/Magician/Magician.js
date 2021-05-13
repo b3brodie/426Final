@@ -18,7 +18,7 @@ class Magician extends Group {
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(1.0 / 1.5);
+            scene1.scale.multiplyScalar(1.5);
             scene1.position.x = 12;
             scene1.rotateY(- Math.PI / 1.5);
             this.add(scene1);

@@ -19,23 +19,23 @@ class Desk extends Group {
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(100.0);
-            scene1.position.x = 20;
+            scene1.scale.multiplyScalar(200.0);
+            scene1.position.x = 30;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(100.0);
-            scene1.position.x = 35;
+            scene1.scale.multiplyScalar(200.0);
+            scene1.position.x = 60;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 
         // Lamp
         loader.load(L, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(50.0);
-            scene1.position.x = 27;
+            scene1.scale.multiplyScalar(80.0);
+            scene1.position.x = 45;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 

@@ -1,5 +1,7 @@
 import { Group, Color, BoxGeometry, MeshStandardMaterial, Mesh, PlaneGeometry, MeshBasicMaterial, RepeatWrapping, TextureLoader } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import MODEL from './window.glb';
 import texture1 from './textures/4.jpg';
 
 class Wall extends Group {
@@ -17,19 +19,46 @@ class Wall extends Group {
         texture.wrapS = RepeatWrapping;
         texture.repeat.set(70, 70);
 
-        const geometry = new BoxGeometry(0.15, 100, 250);
+        var geometry = new BoxGeometry(0.15, 100, 250);
+         
+
         const material = new MeshBasicMaterial({ map: texture });
         const cubeL = new Mesh(geometry, material);
         const cubeR = new Mesh(geometry, material);
 
 
-        cubeR.position.set(-100, 0, 0);
-        cubeL.position.set(100, 0, 0);
+        cubeR.position.set(-80, 0, 0);
+        cubeL.position.set(80, 0, 0);
         //cube.position.z = 50;
         this.position.z = z;
         this.position.y = -5;
         this.add(cubeL);
         this.add(cubeR);
+
+
+        if (!last) {
+            // Load object
+            const loader = new GLTFLoader();
+            loader.load(MODEL, (gltf) => {
+                let scene = gltf.scene;
+                scene.scale.multiplyScalar(1.5);
+                scene.position.y = 2;  
+                scene.position.x = 77;
+                scene.rotateY(- Math.PI / 2);
+                this.add(scene);
+            });
+
+            loader.load(MODEL, (gltf) => {
+                let scene = gltf.scene;
+                scene.scale.multiplyScalar(1.5);
+                scene.position.y = 2;  
+                scene.position.x = -77;
+                scene.rotateY(Math.PI / 2);
+                this.add(scene);
+            });
+
+        }
+        
 
         /*
         let planeMaterial = new MeshStandardMaterial({
@@ -51,7 +80,7 @@ class Wall extends Group {
             return;
         }
         this.position.z -= speed;
-        if (this.position.z < -90) {
+        if (this.position.z < -100) {
             this.position.z = 200;
         }
         // Advance tween animations, if any exist

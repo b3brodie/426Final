@@ -18,15 +18,15 @@ class Board extends Group {
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(40.0);
-            scene1.position.x = 20;
+            scene1.scale.multiplyScalar(60.0);
+            scene1.position.x = 30;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(40.0);
-            scene1.position.x = 35;
+            scene1.scale.multiplyScalar(60.0);
+            scene1.position.x = 60;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 

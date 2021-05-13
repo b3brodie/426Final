@@ -1,8 +1,9 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician } from 'objects';
+import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf} from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
+import { Fire } from '../objects';
 
 class PlayScene extends Scene {
 
@@ -39,14 +40,27 @@ class PlayScene extends Scene {
         //const land5 = new Land(this, 250);
 
         const wall1 = new Wall(this, 100, false);
-        const wall2 = new Wall(this, 250, false);
-        const wall3 = new Wall(this, 350, true);
+        const wall2 = new Wall(this, 200, false);
+        const wall3 = new Wall(this, 300, false);
+        const wall4 = new Wall(this, 340, true);
         
-        const wall4 = new Wall(this, 350, true);
+        
 
-        const desk1 = new Desk(this, 15);
+        const desk1 = new Desk(this, 35);
         const desk2 = new Desk(this, 5); 
-        const board = new Board(this, 25);
+        const board = new Board(this, 45);
+
+
+        const shelf1 = new Bookshelf(this, 10);
+        const shelf2 = new Bookshelf(this, 30);
+        const shelf3 = new Bookshelf(this, 50);
+        const shelf4 = new Bookshelf(this, 70);
+        
+
+        // Fire
+        const fireMiddle = new Fire(this, 1, {x:0, y:1, z:-7});
+        const fireLeft = new Fire(this, 2, {x:2, y:1, z:-12});
+        const fireRight = new Fire(this, 2, {x:-2, y:1, z:-12});
 
         // Magician
         const mag = new Magician(this, 1);
@@ -70,10 +84,12 @@ class PlayScene extends Scene {
         // this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, jumpObstacle);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
+        this.add(fireMiddle, fireLeft, fireRight);
         this.add(desk1, desk2, board);
         this.add(mag);
-
-        this.add(wall1, wall2, wall3);
+        
+        this.add(shelf1, shelf2, shelf3, shelf4);
+        this.add(wall1, wall2, wall3, wall4);
         // add land fragments        
         this.add(land1, land2, land3, land4);
         // this.state.gui.add(this.state, 'continuous');
