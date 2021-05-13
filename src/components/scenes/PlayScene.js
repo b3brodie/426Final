@@ -3,7 +3,7 @@ import { Scene, Color } from 'three';
 import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf} from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
-import { Fire } from '../objects';
+import { Fire, Top } from '../objects';
 
 class PlayScene extends Scene {
 
@@ -37,6 +37,13 @@ class PlayScene extends Scene {
         const land2 = new Land(this, 150, false);
         const land3 = new Land(this, 250, false);
         const land4 = new Land(this, 350, true);
+
+
+
+        const t1 = new Top(this, 50, false);
+        const t2 = new Top(this, 150, false);
+        const t3 = new Top(this, 250, false);
+        const t4 = new Top(this, 350, true);
         //const land5 = new Land(this, 250);
 
         const wall1 = new Wall(this, 100, false, false);
@@ -66,7 +73,7 @@ class PlayScene extends Scene {
         const fireRight = new Fire(this, 2, {x:-2, y:1, z:-12});
 
         // Magician
-        const mag = new Magician(this, 1);
+        const mag = new Magician(this, 1, 5);
 
         const book = new Book(this);
         const longObstacle = new Obstacle(this, {x:1, y:1, z:10}, 0);
@@ -95,6 +102,7 @@ class PlayScene extends Scene {
         this.add(wall1, wall2, wall3, wall4, back);
         // add land fragments        
         this.add(land1, land2, land3, land4);
+        this.add(t1, t2, t3, t4);
         // this.state.gui.add(this.state, 'continuous');
     }
 

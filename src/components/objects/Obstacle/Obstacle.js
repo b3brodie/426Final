@@ -20,7 +20,7 @@ class Obstacle extends Group {
         if (type == 0) {
             this.position.y = 0.5;
         } else if (type == 1) {
-            this.position.y = 1.75;
+            this.position.y = 1.8;
         } else if (type == 2) {
             this.position.y = 0.5;
         } else if (type == 3) {

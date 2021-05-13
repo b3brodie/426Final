@@ -20,7 +20,7 @@ class Wall extends Group {
             texture.wrapS = RepeatWrapping;
             texture.repeat.set(70, 70);
 
-            var geometry = new BoxGeometry(200, 100, 0.15);
+            var geometry = new BoxGeometry(200, 150, 0.15);
             
             const material = new MeshBasicMaterial({ map: texture });
             const cube = new Mesh(geometry, material);
@@ -37,7 +37,7 @@ class Wall extends Group {
         texture.wrapS = RepeatWrapping;
         texture.repeat.set(70, 70);
 
-        var geometry = new BoxGeometry(0.15, 100, 250);
+        var geometry = new BoxGeometry(0.15, 150, 250);
          
 
         const material = new MeshBasicMaterial({ map: texture });

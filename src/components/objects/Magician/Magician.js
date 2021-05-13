@@ -1,27 +1,46 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, AnimationMixer, AnimationClip,  Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './Merlin.glb';
 
 
 class Magician extends Group {
-    constructor(parent, z) {
+    constructor(parent, z, animation_nr) {
         // Call parent Group() constructor
         super();
 
         this.name = 'magician';
-
+        this.state = {
+            animation: null, 
+            mixer: null,
+            action: null,
+            scene: null,
+            prevTimeStamp: null,
+        };
         this.position.z = z;
         this.position.y = -5;
         //this.position.x = 0;
         // Load object
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
-            let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(1.5);
-            scene1.position.x = 12;
-            scene1.rotateY(- Math.PI / 1.5);
-            this.add(scene1);
+            let scene = gltf.scene;
+            scene.scale.multiplyScalar(1.5);
+            scene.position.x = 12;
+            scene.rotateY(- Math.PI / 1.5);
+
+
+            this.state.animation = gltf.animations[animation_nr];
+
+            // add mixer to state
+            const mixer = new AnimationMixer(scene);
+            this.state.mixer = mixer;
+
+            this.state.action = this.state.mixer.clipAction(this.state.animation);
+            //console.log(this.state.action);
+            this.state.action.play();
+            this.state.scene = scene;            
+
+            this.add(scene);
         }); 
                         
         // Add self to parent's update list
@@ -31,9 +50,19 @@ class Magician extends Group {
     update(timeStamp, speed) {
         this.position.z -= speed;    
         if (this.position.z < -10) {
-            this.resetZ();
-            
+            this.resetZ();            
         }    
+        // animate the fire
+        if (this.state.mixer != null){
+            if (this.prevTimeStamp == null) {
+                this.prevTimeStamp = timeStamp;
+            }
+            var delta = timeStamp - this.prevTimeStamp;
+            this.prevTimeStamp = timeStamp;
+            delta = delta / 1000;
+            // update animation
+            this.state.mixer.update(delta);
+         }
         // Advance tween animations, if any exist
         TWEEN.update();
     }

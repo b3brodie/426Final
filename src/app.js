@@ -15,7 +15,7 @@ let state = 0; // game state
 // Initialize core ThreeJS components
 const playScene = new PlayScene();
 // Add fog
-playScene.fog = new Fog(new Color(0xe59866), 0, 400);
+playScene.fog = new Fog(new Color(0xe59866), 40, 500);
 const titleScene = new TitleScene();
 const camera = new PerspectiveCamera();
 const renderer = new WebGLRenderer({ antialias: true });

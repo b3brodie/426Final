@@ -1,7 +1,7 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, AnimationMixer, AnimationClip,  Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './book1.glb';
+import MODEL from './book2.glb';
 
 
 let horizontalBound = 1; // horizontal movement distance
@@ -20,6 +20,11 @@ class Book extends Group {
             horizontal : 0,
             dim : {x:1, y: 0.5, z:1},
             velocityY : 0,
+            animation: null, 
+            mixer: null,
+            action: null,
+            scene: null,
+            prevTimeStamp: null,
         };
 
         this.name = 'book';
@@ -27,14 +32,26 @@ class Book extends Group {
          // Load object
          const loader = new GLTFLoader();
          loader.load(MODEL, (gltf) => {
-             let scene = gltf.scene;
-             scene.scale.multiplyScalar(3.5);
-             this.position.x = initPos.x;
-             this.position.y = initPos.y;
-             this.position.z = 1;
-             scene.rotateX(Math.PI + Math.PI / 3);
-             //scene.rotateY(Math.PI);
-             this.add(scene);
+            let scene = gltf.scene;
+            scene.scale.multiplyScalar(1/500);
+            this.position.x = initPos.x;
+            this.position.y = initPos.y;
+            this.position.z = 1;
+            //scene.rotateX(Math.PI + Math.PI / 3);
+            scene.rotateY(Math.PI);
+
+            this.state.animation = gltf.animations[0];
+
+            // add mixer to state
+            const mixer = new AnimationMixer(scene);
+            this.state.mixer = mixer;
+
+            this.state.action = this.state.mixer.clipAction(this.state.animation);
+            //console.log(this.state.action);
+            this.state.action.play();
+            this.state.scene = scene;            
+
+            this.add(scene);
          });
         /*
         const geometry = new BoxGeometry(this.state.dim.x, this.state.dim.y, this.state.dim.z);
@@ -50,6 +67,17 @@ class Book extends Group {
     }
 
     update(timeStamp) {
+        // animate the book
+        if (this.state.mixer != null){
+            if (this.prevTimeStamp == null) {
+                this.prevTimeStamp = timeStamp;
+            }
+            var delta = timeStamp - this.prevTimeStamp;
+            this.prevTimeStamp = timeStamp;
+            delta = delta / 1000;
+            // update animation
+            this.state.mixer.update(delta);
+         }
 
         const { horizontal } = this.state;
 
