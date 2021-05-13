@@ -39,10 +39,13 @@ class PlayScene extends Scene {
         const land4 = new Land(this, 350, true);
         //const land5 = new Land(this, 250);
 
-        const wall1 = new Wall(this, 100, false);
-        const wall2 = new Wall(this, 200, false);
-        const wall3 = new Wall(this, 300, false);
-        const wall4 = new Wall(this, 340, true);
+        const wall1 = new Wall(this, 100, false, false);
+        const wall2 = new Wall(this, 200, false, false);
+        const wall3 = new Wall(this, 300, false, false);
+        const wall4 = new Wall(this, 340, true, false);
+        // backwall
+
+        const back = new Wall(this, 0, false, true);
         
         
 
@@ -89,7 +92,7 @@ class PlayScene extends Scene {
         this.add(mag);
         
         this.add(shelf1, shelf2, shelf3, shelf4);
-        this.add(wall1, wall2, wall3, wall4);
+        this.add(wall1, wall2, wall3, wall4, back);
         // add land fragments        
         this.add(land1, land2, land3, land4);
         // this.state.gui.add(this.state, 'continuous');

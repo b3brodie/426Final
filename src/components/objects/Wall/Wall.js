@@ -5,13 +5,31 @@ import MODEL from './window.glb';
 import texture1 from './textures/4.jpg';
 
 class Wall extends Group {
-    constructor(parent, z, last) {
+    constructor(parent, z, last, back) {
         // Call parent Group() constructor
         super();
         this.name = 'wall';
         this.last = last;
         //this.last = last;
         
+
+        if (back) {
+            const texture = new TextureLoader().load(texture1);
+            texture.anisotropy = 32;
+            texture.wrapT = RepeatWrapping;
+            texture.wrapS = RepeatWrapping;
+            texture.repeat.set(70, 70);
+
+            var geometry = new BoxGeometry(200, 100, 0.15);
+            
+            const material = new MeshBasicMaterial({ map: texture });
+            const cube = new Mesh(geometry, material);
+
+            cube.position.set(0, 0, 500);
+
+            this.add(cube);
+            return;
+        }
 
         const texture = new TextureLoader().load(texture1);
         texture.anisotropy = 32;
