@@ -9,6 +9,8 @@
 import { WebGLRenderer, PerspectiveCamera, Vector3, Fog, Color, Audio, AudioListener, AudioLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PlayScene, TitleScene } from 'scenes';
+import SlideSound from './audio/swipe.wav';
+
 
 let state = 0; // game state
 
@@ -118,6 +120,19 @@ function keyHandler() {
                         book.state.vertical = 1;
                     }
                 } else if (event.keyCode == 40) { // down
+                    // Load audio
+                    if (playScene.state.mute == false){
+                        var listener = new AudioListener();
+                        var music = new Audio( listener );
+                        var audioLoader = new AudioLoader();
+                        audioLoader.load(SlideSound, function( buffer ) {
+                            music.setBuffer( buffer );
+                            music.setLoop( false );
+                            music.setVolume( 0.50 );
+                            music.play();
+                        });
+                    }
+                    
                     if (book.state.vertical == 0) {
                         book.state.velocityY = -0.01;
                         book.state.vertical = -1;
