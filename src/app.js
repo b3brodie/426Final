@@ -81,6 +81,8 @@ function keyHandler() {
             if (event.keyCode == 32) {
                 playScene.restart();
                 playScene.setLossVisibility(false);
+                playScene.state.book.reset();
+
             }
             if (playScene.state.playing){
                 if (event.keyCode == 39 && book.state.horizontal != -1) { // right

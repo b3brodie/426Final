@@ -139,6 +139,13 @@ class Book extends Group {
         TWEEN.update();
     }
 
+    reset() {
+        this.state.horizontal = 0;
+        this.state.vertical = 0;
+        this.position.x = initPos.x;
+        this.position.y = initPos.y;
+    }
+
     checkCollision(other) {
         let tP = this.position;
         let oP = other.position;

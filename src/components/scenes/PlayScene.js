@@ -142,7 +142,7 @@ class PlayScene extends Scene {
 
         // Call update for each object in the updateList
         if (this.state.playing) {
-            if (this.state.speed < 1) {
+            if (this.state.speed < 0.75) {
                 this.state.speed += 0.0001
             }
             for (const obj of updateList) {
