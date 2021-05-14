@@ -110,8 +110,6 @@ class PlayScene extends Scene {
         // add land fragments        
         this.add(land1, land2, land3, land4);
         this.add(t1, t2, t3, t4);
-        // this.state.gui.add(this.state, 'continuous');
-        console.log(this.children.length)
     }
 
     addToUpdateList(object) {
