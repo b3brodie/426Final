@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color } from 'three';
-import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf} from 'objects';
+import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf, LossText } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
 import { Fire, Top } from '../objects';
@@ -84,7 +84,8 @@ class PlayScene extends Scene {
         const score = new Score(this);
         const lights = new BasicLights();
         this.state.book = book;
-        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
+        this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, 
+            jumpObstacle, sP1, sP2, sP3, sP4, sP5);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         this.add(fireMiddle, fireLeft, fireRight);
@@ -97,6 +98,7 @@ class PlayScene extends Scene {
         this.add(land1, land2, land3, land4);
         this.add(t1, t2, t3, t4);
         // this.state.gui.add(this.state, 'continuous');
+        console.log(this.children.length)
     }
 
     addToUpdateList(object) {
@@ -119,6 +121,16 @@ class PlayScene extends Scene {
         scoreDisplay.reset();
         this.state.playing = true;
         this.state.speed = 0.5;
+    }
+
+    setLossVisibility(visible) {
+        if (visible) {
+            const text = new LossText(this);
+            this.add(text);
+        } else {
+            let len = this.children.length;
+            this.children.splice(len-1);
+        }
     }
 
     update(timeStamp) {
@@ -144,6 +156,7 @@ class PlayScene extends Scene {
                 if (hit) {
                     if (obj instanceof Obstacle) {
                         this.state.playing = false;
+                        this.setLossVisibility(true);
                         break;
                     } else if (obj instanceof ScorePickup) {
                         obj.resetZ();

@@ -13,3 +13,4 @@ export * from './Magician';
 export * from './Bookshelf';
 export * from './Fire';
 export * from './Top';
+export * from './LossText'
