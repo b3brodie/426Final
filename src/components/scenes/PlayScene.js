@@ -25,6 +25,7 @@ class PlayScene extends Scene {
             continuous: false,
             speed: 0.5,
             lost: null,
+            mute: true,
         };
 
         // Set background to a nice color
@@ -141,7 +142,9 @@ class PlayScene extends Scene {
         scoreDisplay.reset();
         this.state.playing = true;
         this.state.speed = 0.5;
-        this.state.music.play();
+        if (!this.state.mute) {
+            this.state.music.play();
+        }
     }
 
     update(timeStamp) {
