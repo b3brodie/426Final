@@ -111,7 +111,8 @@ class PlayScene extends Scene {
     restart() {
         const { updateList, scoreDisplay } = this.state;
         for (const obj of updateList) {
-            if (obj instanceof Obstacle || obj instanceof ScorePickup) {
+            if (obj instanceof Obstacle || obj instanceof ScorePickup || obj instanceof Desk || obj instanceof Board
+                || obj instanceof Bookshelf || obj instanceof Magician) {
                 obj.resetZ();
             }
         }
@@ -126,7 +127,7 @@ class PlayScene extends Scene {
         if (continuous) {
             this.state.playing = true;
         }
-        
+
         // Call update for each object in the updateList
         if (this.state.playing) {
             if (this.state.speed < 1) {

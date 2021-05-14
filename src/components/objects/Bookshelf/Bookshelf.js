@@ -61,6 +61,10 @@ class Bookshelf extends Group {
         TWEEN.update();
     }
 
+    resetZ() {
+        this.position.z = 300;
+    }
+
 }
 
 export default Bookshelf;
