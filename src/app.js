@@ -78,17 +78,17 @@ function keyHandler() {
                 state = 1; // starts game
             }
         } else if (state == 1) {
-            if (event.keyCode == 32) {
-                playScene.restart();
-                playScene.setLossVisibility(false);
-                playScene.state.book.reset();
-
-            }
             if (playScene.state.playing){
                 if (event.keyCode == 39 && book.state.horizontal != -1) { // right
                     book.state.horizontal = 0;
                 } else if (event.keyCode == 37 && book.state.horizontal != 1) { // left
                     book.state.horizontal = 0;
+                }
+            } else {
+                if (event.keyCode == 32) {
+                    playScene.state.lost.setVisibility(false);
+                    playScene.restart();
+                    playScene.state.book.reset();
                 }
             }
         }

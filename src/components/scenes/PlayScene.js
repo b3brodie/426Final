@@ -24,6 +24,7 @@ class PlayScene extends Scene {
             playing: true,
             continuous: false,
             speed: 0.5,
+            lost: null,
         };
 
         // Set background to a nice color
@@ -86,9 +87,12 @@ class PlayScene extends Scene {
         const sP5 = new ScorePickup(this);
         const score = new Score(this);
         const lights = new BasicLights();
+        const lossText = new LossText(this);
+        lossText.setVisibility(false);
+        this.state.lost = lossText;
         this.state.book = book;
         this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, 
-            jumpObstacle, sP1, sP2, sP3, sP4, sP5);
+            jumpObstacle, sP1, sP2, sP3, sP4, sP5, lossText);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         this.add(fireMiddle, fireLeft, fireRight);
@@ -131,15 +135,15 @@ class PlayScene extends Scene {
         this.state.speed = 0.5;
     }
 
-    setLossVisibility(visible) {
-        if (visible) {
-            const text = new LossText(this);
-            this.add(text);
-        } else {
-            let len = this.children.length;
-            this.children.splice(len-1);
-        }
-    }
+    // setLossVisibility(visible) {
+    //     if (visible) {
+    //         const text = new LossText(this);
+    //         this.add(text);
+    //     } else {
+    //         let len = this.children.length;
+    //         this.children.splice(len-1);
+    //     }
+    // }
 
     update(timeStamp) {
         const { updateList, collisionList, book, continuous, scoreDisplay } = this.state;
@@ -165,8 +169,7 @@ class PlayScene extends Scene {
                     if (obj instanceof Obstacle) {
                         this.state.playing = false;
                         obj.changeMaterial(redMaterial);
-
-                        this.setLossVisibility(true);
+                        this.state.lost.setVisibility(true);
                         break;
                     } else if (obj instanceof ScorePickup) {
                         obj.resetZ();
