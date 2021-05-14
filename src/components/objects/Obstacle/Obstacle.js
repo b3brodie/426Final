@@ -1,5 +1,8 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, Mesh, TextureLoader, MeshBasicMaterial, RepeatWrapping } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
+import texture1 from './textures/1.jpg';
+import texture2 from './textures/2.jpg';
+import texture3 from './textures/3.png';
 
 class Obstacle extends Group {
     constructor(parent, dims, type) {
@@ -15,28 +18,60 @@ class Obstacle extends Group {
         this.name = 'obstacle';
         
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
-        const material = new MeshPhongMaterial({color: 0x504030});
-        const obs = new Mesh(geometry, material);
+        //const material = new MeshPhongMaterial({color: 0x504030});
+        //const obs = new Mesh(geometry, material);
+        
         if (type == 0) { // longObstacle
+            const texture = new TextureLoader().load(texture1);
+            const material = new MeshBasicMaterial({ map: texture });
+            const obs = new Mesh(geometry, material);
             this.position.y = 0.5;
+            this.resetZ();
+            this.add(obs);
+            
         } else if (type == 1) { // slidingObstacle
-            this.position.y = 1.8;
-            const g1 = new BoxGeometry(dims.x / 4, dims.y, dims.z);
-            const rightSide = new Mesh(g1, material);
-            const leftSide = new Mesh(g1, material);
-            rightSide.position.x = -1.75;
-            rightSide.position.y = -1;
-            leftSide.position.x = 1.75;
-            leftSide.position.y = -1;
-            this.add(rightSide, leftSide);
-        } else if (type == 2) { // jumpObstacle
-            this.position.y = 0.5;
-        } else if (type == 3) { // tallObstacle
-            this.position.y = 1.5;
-        }
-        this.resetZ();
-        this.add(obs);
+            const texture = new TextureLoader().load(texture2);
+            texture.anisotropy = 32;
+            const material = new MeshBasicMaterial({ map: texture });
+            const textureSides = new TextureLoader().load(texture1);
+            const materialSides = new MeshBasicMaterial({ map: textureSides });
+            
+            const obs = new Mesh(geometry, material);
+            this.position.y = 1.8;            
 
+            const g1 = new BoxGeometry(dims.x / 4, dims.y, dims.z);
+            const rightSide = new Mesh(g1, materialSides);
+            const leftSide = new Mesh(g1, materialSides);
+
+            rightSide.position.x = -2;
+            rightSide.position.y = -1;
+            leftSide.position.x = 2;
+            leftSide.position.y = -1;
+            
+            this.resetZ();
+            this.add(obs);   
+            this.add(rightSide, leftSide);
+
+        } else if (type == 2) { // jumpObstacle
+            const texture = new TextureLoader().load(texture3);
+            texture.anisotropy = 32;
+            texture.wrapT = RepeatWrapping;
+            texture.wrapS = RepeatWrapping;
+            texture.repeat.set(1,1);
+            const material = new MeshBasicMaterial({ map: texture });
+            const obs = new Mesh(geometry, material);
+            this.position.y = 0.5;
+            this.resetZ();
+            this.add(obs);
+
+        } else if (type == 3) { // tallObstacle
+            const texture = new TextureLoader().load(texture1);
+            const material = new MeshBasicMaterial({ map: texture });
+            const obs = new Mesh(geometry, material);
+            this.position.y = 1.5;
+            this.resetZ();
+            this.add(obs);            
+        }        
         // Add self to parent's update list
         parent.addToUpdateList(this);
         parent.addToCollisionList(this);

@@ -7,7 +7,7 @@ class LossText extends Group {
 
         this.name = 'losstext';
 
-        let temp = this;
+        const temp = this;
 
         const loader = new FontLoader();
         loader.load('font.json', function(font) {

@@ -25,7 +25,6 @@ class PlayScene extends Scene {
             continuous: false,
             speed: 0.5,
             lost: null,
-            music: null,
         };
 
         // Set background to a nice color
@@ -53,7 +52,6 @@ class PlayScene extends Scene {
         const wall3 = new Wall(this, 300, false, false);
         const wall4 = new Wall(this, 340, true, false);
         // backwall
-
         const back = new Wall(this, 0, false, true);
         
         const desk1 = new Desk(this, 35);
@@ -61,10 +59,15 @@ class PlayScene extends Scene {
         const board = new Board(this, 45);
 
 
-        const shelf1 = new Bookshelf(this, 10);
-        const shelf2 = new Bookshelf(this, 30);
-        const shelf3 = new Bookshelf(this, 50);
-        const shelf4 = new Bookshelf(this, 70); 
+        // shelves on the right
+        const shelf1 = new Bookshelf(this, 10, true);
+        const shelf2 = new Bookshelf(this, 30, true);
+        const shelf3 = new Bookshelf(this, 50, true);
+        const shelf4 = new Bookshelf(this, 70, true);
+
+        // shelves on the left side
+        const ls1 = new Bookshelf(this, 70, false);
+        const ls2 = new Bookshelf(this, 90, false);
 
         // Fire
         const fireMiddle = new Fire(this, 1, {x:0, y:1, z:-7});
@@ -72,7 +75,8 @@ class PlayScene extends Scene {
         const fireRight = new Fire(this, 2, {x:-2, y:1, z:-12});
 
         // Magician
-        const mag = new Magician(this, 1, 5);
+        const angle = - Math.PI / 1.5;
+        const mag = new Magician(this, 12, -5, 1, 5, true, angle);
 
         const book = new Book(this);
         const longObstacle = new Obstacle(this, {x:1, y:1, z:10}, 0);
@@ -100,7 +104,7 @@ class PlayScene extends Scene {
         this.add(desk1, desk2, board);
         this.add(mag);
         
-        this.add(shelf1, shelf2, shelf3, shelf4);
+        this.add(shelf1, shelf2, shelf3, shelf4, ls1, ls2);
         this.add(wall1, wall2, wall3, wall4, back);
         // add land fragments        
         this.add(land1, land2, land3, land4);

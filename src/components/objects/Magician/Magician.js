@@ -3,9 +3,8 @@ import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './Merlin.glb';
 
-
 class Magician extends Group {
-    constructor(parent, z, animation_nr) {
+    constructor(parent,x, y, z, animation_nr, moving, angle) {
         // Call parent Group() constructor
         super();
 
@@ -16,17 +15,18 @@ class Magician extends Group {
             action: null,
             scene: null,
             prevTimeStamp: null,
+            moving: moving,
         };
         this.position.z = z;
-        this.position.y = -5;
+        this.position.y = y;
         //this.position.x = 0;
         // Load object
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene = gltf.scene;
             scene.scale.multiplyScalar(1.5);
-            scene.position.x = 12;
-            scene.rotateY(- Math.PI / 1.5);
+            scene.position.x = x;
+            scene.rotateY(angle);
 
 
             this.state.animation = gltf.animations[animation_nr];
@@ -48,10 +48,13 @@ class Magician extends Group {
     }
 
     update(timeStamp, speed) {
-        this.position.z -= speed;    
-        if (this.position.z < -10) {
-            this.resetZ();            
-        }    
+        if (this.state.moving) {
+            this.position.z -= speed;    
+            if (this.position.z < -10) {
+                this.resetZ();            
+            }   
+        }
+         
         // animate the fire
         if (this.state.mixer != null){
             if (this.prevTimeStamp == null) {
