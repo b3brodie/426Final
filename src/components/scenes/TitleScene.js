@@ -11,8 +11,9 @@ class TitleScene extends Scene {
 
         // Init state
         this.state = {
-            // gui: new Dat.GUI(), // Create GUI for scene
+            gui: new Dat.GUI(), // Create GUI for scene
             updateList: [],
+            sound: false,
         };
 
         // Set background to a nice color
@@ -23,6 +24,7 @@ class TitleScene extends Scene {
         const header = new TitleText(this);
         this.add(lights, header);
         // this.add(lights);
+        this.state.gui.add(this.state, 'sound');
     }
 
     addToUpdateList(object) {

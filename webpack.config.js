@@ -56,6 +56,10 @@ module.exports = {
         new HtmlWebpackPlugin({ title: pkg.title, favicon: 'src/favicon.ico' }),
         new CopyPlugin([
             {
+                from: './src/audio/soundtrack.mp3',
+                to: 'soundtrack.mp3',
+            },
+            {
                 from: './src/style/font.json',
                 to: 'font.json',
             }

@@ -6,7 +6,7 @@
  * handles window resizes.
  *
  */
-import { WebGLRenderer, PerspectiveCamera, Vector3, Fog, Color } from 'three';
+import { WebGLRenderer, PerspectiveCamera, Vector3, Fog, Color, Audio, AudioListener, AudioLoader } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PlayScene, TitleScene } from 'scenes';
 
@@ -39,6 +39,17 @@ controls.enablePan = false;
 controls.minDistance = 4;
 controls.maxDistance = 16;
 controls.update();
+
+// Load audio
+var listener = new AudioListener();
+var music = new Audio( listener );
+var audioLoader = new AudioLoader();
+audioLoader.load('soundtrack.mp3', function( buffer ) {
+    music.setBuffer( buffer );
+    music.setLoop( true );
+    music.setVolume( 0.25 );
+    music.pause();
+});
 
 // Render loop
 const onAnimationFrameHandler = (timeStamp) => {
@@ -76,6 +87,11 @@ function keyHandler() {
         if (state == 0) {
             if (event.keyCode == 32) { // space bar
                 state = 1; // starts game
+                if (!titleScene.state.sound) {
+                    music.setVolume(0);
+                }
+                titleScene.state.gui.hide();
+                playScene.addMusic(music);
             }
         } else if (state == 1) {
             if (playScene.state.playing){

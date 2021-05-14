@@ -25,6 +25,7 @@ class PlayScene extends Scene {
             continuous: false,
             speed: 0.5,
             lost: null,
+            music: null,
         };
 
         // Set background to a nice color
@@ -116,6 +117,11 @@ class PlayScene extends Scene {
         this.state.collisionList.push(object);
     }
 
+    addMusic(music) {
+        this.state.music = music;
+        music.play();
+    }
+
     // restarts the game
     restart() {
         const { updateList, scoreDisplay } = this.state;
@@ -133,17 +139,8 @@ class PlayScene extends Scene {
         scoreDisplay.reset();
         this.state.playing = true;
         this.state.speed = 0.5;
+        this.state.music.play();
     }
-
-    // setLossVisibility(visible) {
-    //     if (visible) {
-    //         const text = new LossText(this);
-    //         this.add(text);
-    //     } else {
-    //         let len = this.children.length;
-    //         this.children.splice(len-1);
-    //     }
-    // }
 
     update(timeStamp) {
         const { updateList, collisionList, book, continuous, scoreDisplay } = this.state;
@@ -170,6 +167,7 @@ class PlayScene extends Scene {
                         this.state.playing = false;
                         obj.changeMaterial(redMaterial);
                         this.state.lost.setVisibility(true);
+                        this.state.music.pause();
                         break;
                     } else if (obj instanceof ScorePickup) {
                         obj.resetZ();
