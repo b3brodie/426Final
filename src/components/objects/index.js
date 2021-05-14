@@ -17,3 +17,5 @@ export * from './LossText';
 export * from './Desk2';
 export * from './Chair';
 export * from './Cat';
+export * from './Desk3';
+export * from './Bookshelf2';
