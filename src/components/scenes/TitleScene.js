@@ -1,6 +1,6 @@
 import * as Dat from 'dat.gui';
 import { Scene, Color, TextureLoader } from 'three';
-import { TitleText, Magician } from 'objects';
+import { TitleText, Magician, Cat } from 'objects';
 import { BasicLights } from 'lights';
 import texture1 from './textures/2.jpg';
 
@@ -30,8 +30,10 @@ class TitleScene extends Scene {
         // this.add(lights);
         // Magician
         const angle = -Math.PI / 1.5;
-        const mag = new Magician(this, 11, -14, 10, 0, false, angle);
-        this.add(mag);
+        const cangle = Math.PI / 1.5;
+        const mag = new Magician(this, 11, -14, 10, 8, false, angle);
+        const cat = new Cat(this, -11, -14, 10, 3, false, cangle);
+        this.add(mag, cat);
         
         this.state.gui.add(this.state, 'sound');
     }
