@@ -1,15 +1,15 @@
 import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import MODEL from './shelf.glb';
+import MODEL from './shelf2.glb';
 
 
-class Bookshelf extends Group {
+class Bookshelf2 extends Group {
     constructor(parent, z, left) {
         // Call parent Group() constructor
         super();
 
-        this.name = 'bookshelf';
+        this.name = 'bookshelf2';
         this.z = z;
         this.position.z = z;
         this.position.y = -5;
@@ -21,26 +21,26 @@ class Bookshelf extends Group {
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(1/1.3);
+            scene1.scale.multiplyScalar(1/ 8);
             if (left) {
                 scene1.position.x = -25;
             } else {
                 scene1.position.x = 30;
             }
             
-            scene1.rotateY(Math.PI);
+            scene1.rotateY(Math.PI / 2);
             this.add(scene1);
         });        
         
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(1 / 1.3);
+            scene1.scale.multiplyScalar(1 / 6);
             if (left) {
                 scene1.position.x = -50;
             } else {
                 scene1.position.x = 55;
             }
-            scene1.rotateY(Math.PI);
+            scene1.rotateY(Math.PI / 2);
             this.add(scene1);
         }); 
         
@@ -64,4 +64,4 @@ class Bookshelf extends Group {
 
 }
 
-export default Bookshelf;
+export default Bookshelf2;
