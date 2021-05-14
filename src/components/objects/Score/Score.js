@@ -93,6 +93,23 @@ class Score extends Group {
     increase(val) {
         this.state.scoreVal += val;
     }
+
+    reset() {
+        this.state.scoreVal = 0;
+        this.state.score = 0;
+        var score = new TextGeometry(this.state.score.toString(), {
+            font: this.state.scoreFont,
+            size: 150,
+            height: 0,
+            curveSegments: 10,
+            bevelEnabled: false,
+            bevelThickness: 10,
+            bevelSize: 8,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+        this.state.scoreMesh.geometry = score;
+    }
 }
 
 export default Score;

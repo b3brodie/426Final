@@ -57,7 +57,7 @@ class Obstacle extends Group {
         if (this.state.avoid != undefined) {
             for (const obj of this.state.avoid) {
                 if (Math.abs(this.position.z - obj.position.z) < 30) {
-                    console.log("PUSHING FURTHER")
+                    // console.log("PUSHING FURTHER")
                     this.position.z += 70;
                 }
             } 

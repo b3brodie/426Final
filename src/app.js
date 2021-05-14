@@ -13,7 +13,7 @@ import { PlayScene, TitleScene } from 'scenes';
 let state = 0; // game state
 
 // Initialize core ThreeJS components
-const playScene = new PlayScene();
+var playScene = new PlayScene();
 // Add fog
 playScene.fog = new Fog(new Color(0xe59866), 40, 500);
 const titleScene = new TitleScene();
@@ -78,6 +78,10 @@ function keyHandler() {
                 state = 1; // starts game
             }
         } else if (state == 1) {
+            if (event.keyCode == 32) {
+                playScene.restart();
+                console.log("restarting");
+            }
             if (playScene.state.playing){
                 if (event.keyCode == 39 && book.state.horizontal != -1) { // right
                     book.state.horizontal = 0;

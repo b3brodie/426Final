@@ -32,13 +32,10 @@ class PlayScene extends Scene {
         const trail3 = new Trail(this, 350);
         //const trail4 = new Trail(this, 0);
 
-
         const land1 = new Land(this, 50, false);
         const land2 = new Land(this, 150, false);
         const land3 = new Land(this, 250, false);
         const land4 = new Land(this, 350, true);
-
-
 
         const t1 = new Top(this, 50, false);
         const t2 = new Top(this, 150, false);
@@ -54,8 +51,6 @@ class PlayScene extends Scene {
 
         const back = new Wall(this, 0, false, true);
         
-        
-
         const desk1 = new Desk(this, 35);
         const desk2 = new Desk(this, 5); 
         const board = new Board(this, 45);
@@ -64,8 +59,7 @@ class PlayScene extends Scene {
         const shelf1 = new Bookshelf(this, 10);
         const shelf2 = new Bookshelf(this, 30);
         const shelf3 = new Bookshelf(this, 50);
-        const shelf4 = new Bookshelf(this, 70);
-        
+        const shelf4 = new Bookshelf(this, 70); 
 
         // Fire
         const fireMiddle = new Fire(this, 1, {x:0, y:1, z:-7});
@@ -91,7 +85,6 @@ class PlayScene extends Scene {
         const lights = new BasicLights();
         this.state.book = book;
         this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, score, jumpObstacle, sP1, sP2, sP3, sP4, sP5);
-        // this.add(lights, book, longObstacle, tallObstacle, slidingObstacle, jumpObstacle);
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         this.add(fireMiddle, fireLeft, fireRight);
@@ -114,13 +107,26 @@ class PlayScene extends Scene {
         this.state.collisionList.push(object);
     }
 
+    // restarts the game
+    restart() {
+        const { updateList, scoreDisplay } = this.state;
+        for (const obj of updateList) {
+            if (obj instanceof Obstacle || obj instanceof ScorePickup) {
+                obj.resetZ();
+            }
+        }
+        scoreDisplay.reset();
+        this.state.playing = true;
+        this.state.speed = 0.5;
+    }
+
     update(timeStamp) {
         const { updateList, collisionList, book, continuous, scoreDisplay } = this.state;
 
         if (continuous) {
             this.state.playing = true;
         }
-
+        
         // Call update for each object in the updateList
         if (this.state.playing) {
             if (this.state.speed < 1) {
