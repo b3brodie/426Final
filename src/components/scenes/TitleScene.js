@@ -14,7 +14,7 @@ class TitleScene extends Scene {
         this.state = {
             gui: new Dat.GUI(), // Create GUI for scene
             updateList: [],
-            sound: false,
+            sound: true,
         };
 
         // Set background to a nice color
