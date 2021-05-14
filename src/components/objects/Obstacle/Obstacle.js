@@ -15,7 +15,7 @@ class Obstacle extends Group {
         this.name = 'obstacle';
         
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
-        const material = new MeshPhongMaterial({color: 0x444444});
+        const material = new MeshPhongMaterial({color: 0x504030});
         const obs = new Mesh(geometry, material);
         if (type == 0) {
             this.position.y = 0.5;
