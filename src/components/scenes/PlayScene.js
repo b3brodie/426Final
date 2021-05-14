@@ -1,9 +1,12 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color } from 'three';
+import { Scene, Color, MeshPhongMaterial } from 'three';
 import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf, LossText } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
 import { Fire, Top } from '../objects';
+
+const brownMaterial = new MeshPhongMaterial({color: 0x504030});
+const redMaterial = new MeshPhongMaterial({color: 0xFF0000});
 
 class PlayScene extends Scene {
 
@@ -117,6 +120,11 @@ class PlayScene extends Scene {
                 || obj instanceof Bookshelf || obj instanceof Magician) {
                 obj.resetZ();
             }
+            if (obj instanceof Obstacle) {
+                if (obj.children[0].material == redMaterial) {
+                    obj.changeMaterial(brownMaterial);
+                }
+            }
         }
         scoreDisplay.reset();
         this.state.playing = true;
@@ -156,6 +164,8 @@ class PlayScene extends Scene {
                 if (hit) {
                     if (obj instanceof Obstacle) {
                         this.state.playing = false;
+                        obj.changeMaterial(redMaterial);
+
                         this.setLossVisibility(true);
                         break;
                     } else if (obj instanceof ScorePickup) {

@@ -42,6 +42,12 @@ class Obstacle extends Group {
         parent.addToCollisionList(this);
     }
 
+    changeMaterial(material) {
+        for (const chld of this.children) {
+            chld.material = material;
+        }
+    }
+
     addToAvoid(obj) {
         this.state.avoid.push(obj);
     }
