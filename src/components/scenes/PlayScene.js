@@ -135,9 +135,7 @@ class PlayScene extends Scene {
                 obj.resetZ();
             }
             if (obj instanceof Obstacle) {
-                if (obj.children[0].material == redMaterial) {
-                    obj.changeMaterial(brownMaterial);
-                }
+                obj.redden(false);
             }
         }
         scoreDisplay.reset();
@@ -169,7 +167,8 @@ class PlayScene extends Scene {
                 if (hit) {
                     if (obj instanceof Obstacle) {
                         this.state.playing = false;
-                        obj.changeMaterial(redMaterial);
+                        // obj.changeMaterial(redMaterial);
+                        obj.redden(true);
                         this.state.lost.setVisibility(true);
                         this.state.music.pause();
                         break;

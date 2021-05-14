@@ -4,6 +4,8 @@ import texture1 from './textures/1.jpg';
 import texture2 from './textures/2.jpg';
 import texture3 from './textures/3.png';
 
+const redMaterial = new MeshPhongMaterial({color: 0xFF0000});
+
 class Obstacle extends Group {
     constructor(parent, dims, type) {
         // Call parent Group() constructor
@@ -13,10 +15,12 @@ class Obstacle extends Group {
             dim : dims,
             type : type,
             avoid : [],
+            type: -1,
         };
 
         this.name = 'obstacle';
-        
+        this.state.type = type;
+
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
         //const material = new MeshPhongMaterial({color: 0x504030});
         //const obs = new Mesh(geometry, material);
@@ -80,6 +84,48 @@ class Obstacle extends Group {
     changeMaterial(material) {
         for (const chld of this.children) {
             chld.material = material;
+        }
+    }
+
+    redden(doIt) {
+        if (doIt) {
+            if (this.state.type == 1) {
+                for (const chld of this.children) {
+                    chld.material = redMaterial;
+                }
+            } else {
+                this.children[0].material = redMaterial;
+            }
+        } else {
+            if (this.children[0].material != redMaterial) {
+                return
+            }
+            if (this.state.type == 0) {
+                const texture = new TextureLoader().load(texture1);
+                const material = new MeshBasicMaterial({ map: texture });
+                this.children[0].material = material;
+            } else if (this.state.type == 1) {
+                const texture = new TextureLoader().load(texture2);
+                texture.anisotropy = 32;
+                const material = new MeshBasicMaterial({ map: texture });
+                this.children[0].material = material;
+                const textureSides = new TextureLoader().load(texture1);
+                const materialSides = new MeshBasicMaterial({ map: textureSides });
+                this.children[1].material = materialSides;
+                this.children[2].material = materialSides;
+            } else if (this.state.type == 2) {
+                const texture = new TextureLoader().load(texture3);
+                texture.anisotropy = 32;
+                texture.wrapT = RepeatWrapping;
+                texture.wrapS = RepeatWrapping;
+                texture.repeat.set(1,1);
+                const material = new MeshBasicMaterial({ map: texture });
+                this.children[0].material = material;
+            } else if (this.state.type == 3) {
+                const texture = new TextureLoader().load(texture1);
+                const material = new MeshBasicMaterial({ map: texture });
+                this.children[0].material = material;
+            }
         }
     }
 

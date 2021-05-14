@@ -88,6 +88,7 @@ function keyHandler() {
             if (event.keyCode == 32) { // space bar
                 state = 1; // starts game
                 if (!titleScene.state.sound) {
+                    console.log("set sound to 0;")
                     music.setVolume(0);
                 }
                 titleScene.state.gui.hide();
