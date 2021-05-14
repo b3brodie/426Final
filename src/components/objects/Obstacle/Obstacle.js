@@ -131,6 +131,7 @@ class Obstacle extends Group {
 
     addToAvoid(obj) {
         this.state.avoid.push(obj);
+        this.resetZ();
     }
 
     update(timeStamp, speed) {

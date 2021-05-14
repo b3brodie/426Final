@@ -85,18 +85,12 @@ class PlayScene extends Scene {
         const ls5 =  new Bookshelf(this, 210, false);
         const ls6 = new Bookshelf(this, 230, false);
 
-        
-
-
         const shelfLeft1 = new Bookshelf2(this, 250, false);
         const shelfLeft2 = new Bookshelf2(this, 270, false);
         const shelfLeft3 = new Bookshelf2(this, 290, false);
 
         const tl1 = new Desk3(this, 15, 320);
-        const tl2 = new Desk3(this, 15, 340);
-
-        
-        
+        const tl2 = new Desk3(this, 15, 340);    
 
         // Magician        
         const mag = new Magician(this, 12, -5, 1, 5, true, angle);
@@ -198,7 +192,9 @@ class PlayScene extends Scene {
 
     addMusic(music) {
         this.state.music = music;
-        music.play();
+        if (!this.state.mute) {
+            music.play();
+        }
     }
 
     // restarts the game
