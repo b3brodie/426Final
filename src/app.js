@@ -10,6 +10,7 @@ import { WebGLRenderer, PerspectiveCamera, Vector3, Fog, Color, Audio, AudioList
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PlayScene, TitleScene } from 'scenes';
 import SlideSound from './audio/swipe.wav';
+import FlySound from './audio/fly.wav';
 
 
 let state = 0; // game state
@@ -115,6 +116,20 @@ function keyHandler() {
         if (state == 1) {
             if (playScene.state.playing) {
                 if (event.keyCode == 38) { // up
+                    // Load audio
+                    if (playScene.state.mute == false){
+                        var listener = new AudioListener();
+                        var music = new Audio( listener );
+                        var audioLoader = new AudioLoader();
+                        audioLoader.load(FlySound, function( buffer ) {
+                            music.setBuffer( buffer );
+                            music.setLoop( false );
+                            music.setVolume( 0.50 );
+                            music.play();
+                        });
+                    }
+
+
                     if (book.state.vertical == 0 || book.state.vertical == -1) {
                         book.state.velocityY = 0.15;
                         book.state.vertical = 1;
