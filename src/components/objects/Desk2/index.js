@@ -1,0 +1,1 @@
+export { default as Desk2} from './Desk2.js';

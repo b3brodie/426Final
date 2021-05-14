@@ -1,4 +1,4 @@
-import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path } from 'three';
+import { Group, BoxGeometry, MeshPhongMaterial, Mesh, Path, Audio, AudioListener, AudioLoader } from 'three';
 import { TWEEN } from 'three/examples/jsm/libs/tween.module.min.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import MODEL from './star.glb';

@@ -1,9 +1,12 @@
 import * as Dat from 'dat.gui';
-import { Scene, Color, MeshPhongMaterial } from 'three';
+import { Scene, Color, MeshPhongMaterial, Audio, AudioListener, AudioLoader } from 'three';
 import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf, LossText } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
-import { Fire, Top } from '../objects';
+import { Fire, Top, Cat, Desk2, Chair } from '../objects';
+
+import earningSound from './music/earning.wav';
+import hitSound from './music/hit.wav';
 
 const brownMaterial = new MeshPhongMaterial({color: 0x504030});
 const redMaterial = new MeshPhongMaterial({color: 0xFF0000});
@@ -55,30 +58,63 @@ class PlayScene extends Scene {
         // backwall
         const back = new Wall(this, 0, false, true);
         
+        const angle = - Math.PI / 1.5;
+        const angle2 = - Math.PI / 1.5;
+        const cangle = - Math.PI / 2; 
+        //------------------------------------------------
+        // Leftside
         const desk1 = new Desk(this, 35);
-        const desk2 = new Desk(this, 5); 
-        const board = new Board(this, 45);
+        const desk2 = new Desk(this, 10); 
+        const boardL1 = new Board(this, 30, 45);
+        const boardL2 = new Board(this, 50, 45);
+        
+        
+        // shelves on the left side
+        const ls1 = new Bookshelf(this, 70, false);
+        const ls2 = new Bookshelf(this, 90, false);
+        const ls3 = new Bookshelf(this, 110, false);
+        const ls4 = new Bookshelf(this, 130, false);
 
+        const d1 = new Desk2(this, 30, 160);
+        const chairR1 = new Chair(this, 30, 180, cangle); 
+        const chairR2 = new Chair(this, 45, 180, cangle);  
+        const chairR3 = new Chair(this, 60, 180, cangle);  
+        const d2 = new Desk2(this, 30, 190);
+        
+        const ls5 =  new Bookshelf(this, 210, false);
+        const ls6 = new Bookshelf(this, 230, false);
 
+        // Magician        
+        const mag = new Magician(this, 12, -5, 1, 5, true, angle);
+                            //     x    y    z
+        const cat2 = new Cat(this, 25, -5, -20, 4, true, angle2);
+
+        //-----------------------------------------------
+        // Rightside
         // shelves on the right
         const shelf1 = new Bookshelf(this, 10, true);
         const shelf2 = new Bookshelf(this, 30, true);
         const shelf3 = new Bookshelf(this, 50, true);
         const shelf4 = new Bookshelf(this, 70, true);
+        const cat = new Cat(this, -12, -5, 1, 5, true, angle);        
+        // desk
+        const dl1 = new Desk2(this, -60, 100);           
+        const dl2 = new Desk2(this, -60, 130);        
+        const chairL1 = new Chair(this, -30, 120, cangle);  
+        const chairL2 = new Chair(this, -45, 120, cangle);   
+        const chairL3 = new Chair(this, -60, 120, cangle);  
+        const cat3 = new Cat(this, -30, 0, 160, 0, true, angle);
+        const dl3 = new Desk2(this, -60, 160);        
 
-        // shelves on the left side
-        const ls1 = new Bookshelf(this, 70, false);
-        const ls2 = new Bookshelf(this, 90, false);
+        const boardR1 = new Board(this, -30, 175);
+        const boardR2 = new Board(this, -50, 175);
 
         // Fire
         const fireMiddle = new Fire(this, 1, {x:0, y:1, z:-7});
         const fireLeft = new Fire(this, 2, {x:2, y:1, z:-12});
         const fireRight = new Fire(this, 2, {x:-2, y:1, z:-12});
 
-        // Magician
-        const angle = - Math.PI / 1.5;
-        const mag = new Magician(this, 12, -5, 1, 5, true, angle);
-
+        
         const book = new Book(this);
         const longObstacle = new Obstacle(this, {x:1, y:1, z:10}, 0);
         const tallObstacle = new Obstacle(this, {x:1, y:3, z:0.5}, 3);
@@ -102,12 +138,15 @@ class PlayScene extends Scene {
         // ad trail fragments
         this.add(trail1, trail2, trail3);
         this.add(fireMiddle, fireLeft, fireRight);
-        this.add(desk1, desk2, board);
-        this.add(mag);
-        
-        this.add(shelf1, shelf2, shelf3, shelf4, ls1, ls2);
+        this.add(desk1, desk2);
+        this.add(boardL1, boardL2, boardR1, boardR2);
+        this.add(mag, cat, cat2, cat3);
+        this.add(dl1, dl2, dl3);
+        this.add(d1, d2);
+        this.add(shelf1, shelf2, shelf3, shelf4, ls1, ls2, ls3, ls4, ls5, ls6);
         this.add(wall1, wall2, wall3, wall4, back);
-        // add land fragments        
+        this.add(chairL1, chairL2, chairL3, chairR1, chairR2, chairR3);
+        // add land fragments       
         this.add(land1, land2, land3, land4);
         this.add(t1, t2, t3, t4);
     }
@@ -130,7 +169,8 @@ class PlayScene extends Scene {
         const { updateList, scoreDisplay } = this.state;
         for (const obj of updateList) {
             if (obj instanceof Obstacle || obj instanceof ScorePickup || obj instanceof Desk || obj instanceof Board
-                || obj instanceof Bookshelf || obj instanceof Magician) {
+                || obj instanceof Bookshelf || obj instanceof Magician || obj instanceof Desk2 || obj instanceof Cat
+                || obj instanceof Chair) {
                 obj.resetZ();
             }
             if (obj instanceof Obstacle) {
@@ -167,13 +207,46 @@ class PlayScene extends Scene {
                 let hit = book.checkCollision(obj);
                 if (hit) {
                     if (obj instanceof Obstacle) {
+                        // Load audio
+                        if (this.state.mute == false){
+                            var listener = new AudioListener();
+                            var music = new Audio( listener );
+                            var audioLoader = new AudioLoader();
+                            audioLoader.load(hitSound, function( buffer ) {
+                                music.setBuffer( buffer );
+                                music.setLoop( false );
+                                music.setVolume( 0.50 );
+                                music.play();
+                            });
+
+                        }
+
+
+
                         this.state.playing = false;
                         // obj.changeMaterial(redMaterial);
                         obj.redden(true);
                         this.state.lost.setVisibility(true);
                         this.state.music.pause();
                         break;
+
+
+
                     } else if (obj instanceof ScorePickup) {
+                        // Load audio
+                        if (this.state.mute == false) {
+                            var listener = new AudioListener();
+                            var music = new Audio( listener );
+                            var audioLoader = new AudioLoader();
+                            audioLoader.load(earningSound, function( buffer ) {
+                                music.setBuffer( buffer );
+                                music.setLoop( false );
+                                music.setVolume( 0.50 );
+                                music.play();
+                            });
+
+                        } 
+                        
                         obj.resetZ();
                         scoreDisplay.increase(10);
                     }

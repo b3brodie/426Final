@@ -10,7 +10,7 @@ class Bookshelf extends Group {
         super();
 
         this.name = 'bookshelf';
-
+        this.z = z;
         this.position.z = z;
         this.position.y = -5;
 
@@ -44,16 +44,6 @@ class Bookshelf extends Group {
             this.add(scene1);
         }); 
         
-        /*
-        loader.load(MODEL, (gltf) => {
-            let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(1.0 / 120);
-            scene1.position.x = -15;
-            
-            scene1.rotateY(Math.PI);
-            this.add(scene1);
-        }); 
-        */
        
         // Add self to parent's update list
         parent.addToUpdateList(this);
@@ -62,15 +52,14 @@ class Bookshelf extends Group {
     update(timeStamp, speed) {
         this.position.z -= speed;    
         if (this.position.z < -10) {
-            this.position.z = 300;
+            this.position.z = 400;
             
         }    
         // Advance tween animations, if any exist
         TWEEN.update();
     }
-
     resetZ() {
-        this.position.z = 300;
+        this.position.z = this.z;
     }
 
 }

@@ -9,6 +9,7 @@ class Magician extends Group {
         super();
 
         this.name = 'magician';
+        this.z = z;
         this.state = {
             animation: null, 
             mixer: null,
@@ -51,7 +52,7 @@ class Magician extends Group {
         if (this.state.moving) {
             this.position.z -= speed;    
             if (this.position.z < -10) {
-                this.resetZ();            
+                this.position.z = 400;            
             }   
         }
          
@@ -71,7 +72,7 @@ class Magician extends Group {
     }
     resetZ() {
         //let variance = Math.random() * 150;
-        this.position.z = 300;
+        this.position.z = this.z;
     }
 
 

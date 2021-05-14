@@ -10,8 +10,8 @@ class Desk extends Group {
         // Call parent Group() constructor
         super();
 
-        this.name = 'board';
-
+        this.name = 'desk';
+        this.z = z;
         this.position.z = z;
         this.position.y = -5;
         //this.position.x = 0;
@@ -19,14 +19,14 @@ class Desk extends Group {
         let loader = new GLTFLoader();
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(200.0);
+            scene1.scale.multiplyScalar(220.0);
             scene1.position.x = 30;
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
-            scene1.scale.multiplyScalar(200.0);
+            scene1.scale.multiplyScalar(220.0);
             scene1.position.x = 60;
             scene1.rotateY(Math.PI);
             this.add(scene1);
@@ -63,7 +63,7 @@ class Desk extends Group {
     update(timeStamp, speed) {
         this.position.z -= speed;    
         if (this.position.z < -10) {
-            this.resetZ();
+            this.position.z = 400;
             
         }    
         // Advance tween animations, if any exist
@@ -71,7 +71,7 @@ class Desk extends Group {
     }
     resetZ() {
         //let variance = Math.random() * 150;
-        this.position.z = 300;
+        this.position.z = this.z;
     }
 
 
