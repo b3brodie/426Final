@@ -17,13 +17,21 @@ class Obstacle extends Group {
         const geometry = new BoxGeometry(dims.x, dims.y, dims.z);
         const material = new MeshPhongMaterial({color: 0x504030});
         const obs = new Mesh(geometry, material);
-        if (type == 0) {
+        if (type == 0) { // longObstacle
             this.position.y = 0.5;
-        } else if (type == 1) {
+        } else if (type == 1) { // slidingObstacle
             this.position.y = 1.8;
-        } else if (type == 2) {
+            const g1 = new BoxGeometry(dims.x / 4, dims.y, dims.z);
+            const rightSide = new Mesh(g1, material);
+            const leftSide = new Mesh(g1, material);
+            rightSide.position.x = -1.75;
+            rightSide.position.y = -1;
+            leftSide.position.x = 1.75;
+            leftSide.position.y = -1;
+            this.add(rightSide, leftSide);
+        } else if (type == 2) { // jumpObstacle
             this.position.y = 0.5;
-        } else if (type == 3) {
+        } else if (type == 3) { // tallObstacle
             this.position.y = 1.5;
         }
         this.resetZ();
