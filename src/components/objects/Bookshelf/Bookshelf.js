@@ -5,7 +5,7 @@ import MODEL from './shelf2.glb';
 
 
 class Bookshelf extends Group {
-    constructor(parent, z) {
+    constructor(parent, z, left) {
         // Call parent Group() constructor
         super();
 
@@ -22,16 +22,24 @@ class Bookshelf extends Group {
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
             scene1.scale.multiplyScalar(1/1.3);
-            scene1.position.x = -25;
+            if (left) {
+                scene1.position.x = -25;
+            } else {
+                scene1.position.x = 30;
+            }
+            
             scene1.rotateY(Math.PI);
             this.add(scene1);
-        }); 
-       
+        });        
         
         loader.load(MODEL, (gltf) => {
             let scene1 = gltf.scene;
             scene1.scale.multiplyScalar(1 / 1.3);
-            scene1.position.x = -50;
+            if (left) {
+                scene1.position.x = -50;
+            } else {
+                scene1.position.x = 55;
+            }
             scene1.rotateY(Math.PI);
             this.add(scene1);
         }); 
@@ -59,10 +67,6 @@ class Bookshelf extends Group {
         }    
         // Advance tween animations, if any exist
         TWEEN.update();
-    }
-
-    resetZ() {
-        this.position.z = 300;
     }
 
 }

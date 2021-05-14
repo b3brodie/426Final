@@ -9,7 +9,7 @@ class TitleText extends Group {
 
         const loader = new FontLoader();
         loader.load('font.json', function(font) {
-            var material = new MeshPhongMaterial({color: 0x000000});
+            var material = new MeshPhongMaterial({color: 0xffffff});
             material.shininess = 150;
     
             // title

@@ -24,10 +24,13 @@ class Wall extends Group {
             
             const material = new MeshBasicMaterial({ map: texture });
             const cube = new Mesh(geometry, material);
+            const cube2 = new Mesh(geometry, material);
 
             cube.position.set(0, 0, 500);
+            cube2.position.set(0, 0, -20);
 
             this.add(cube);
+            this.add(cube2);
             return;
         }
 

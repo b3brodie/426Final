@@ -7,8 +7,6 @@ class LossText extends Group {
 
         this.name = 'losstext';
 
-        let temp = this;
-
         const loader = new FontLoader();
         loader.load('font.json', function(font) {
             var material = new MeshPhongMaterial({color: 0x000000});
@@ -32,17 +30,9 @@ class LossText extends Group {
             mesh2.rotation.set(0, Math.PI, 0);
             mesh2.scale.multiplyScalar(0.01);
             mesh2.castShadow = true;
-            temp.add(mesh2);
+            parent.add(mesh2);
         });
 
-    }
-
-    setVisibility(visible) {
-        if (visible) {
-            this.visible = true;
-        } else {
-            this.visible = false;
-        }
     }
 }
 
