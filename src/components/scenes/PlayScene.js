@@ -3,7 +3,7 @@ import { Scene, Color, MeshPhongMaterial, Audio, AudioListener, AudioLoader } fr
 import { Trail, Book, Obstacle, Score, ScorePickup, Desk, Board, Wall, Magician, Bookshelf, LossText } from 'objects';
 import { BasicLights } from 'lights';
 import Land from '../objects/Land/Land';
-import { Fire, Top, Cat, Desk2, Chair } from '../objects';
+import { Fire, Top, Cat, Desk2, Desk3, Chair, Bookshelf2 } from '../objects';
 
 import earningSound from './music/earning.wav';
 import hitSound from './music/hit.wav';
@@ -61,10 +61,11 @@ class PlayScene extends Scene {
         const angle = - Math.PI / 1.5;
         const angle2 = - Math.PI / 1.5;
         const cangle = - Math.PI / 2; 
-        //------------------------------------------------
+        //---------------------------------------------------------------------------------------
         // Leftside
         const desk1 = new Desk(this, 35);
         const desk2 = new Desk(this, 10); 
+        
         const boardL1 = new Board(this, 30, 45);
         const boardL2 = new Board(this, 50, 45);
         
@@ -84,12 +85,25 @@ class PlayScene extends Scene {
         const ls5 =  new Bookshelf(this, 210, false);
         const ls6 = new Bookshelf(this, 230, false);
 
+        
+
+
+        const shelfLeft1 = new Bookshelf2(this, 250, false);
+        const shelfLeft2 = new Bookshelf2(this, 270, false);
+        const shelfLeft3 = new Bookshelf2(this, 290, false);
+
+        const tl1 = new Desk3(this, 15, 320);
+        const tl2 = new Desk3(this, 15, 340);
+
+        
+        
+
         // Magician        
         const mag = new Magician(this, 12, -5, 1, 5, true, angle);
                             //     x    y    z
-        const cat2 = new Cat(this, 25, -5, -20, 4, true, angle2);
+        const cat2 = new Cat(this, 25, -5, 380, 4, true, angle2);
 
-        //-----------------------------------------------
+        //---------------------------------------------------------------------------------------
         // Rightside
         // shelves on the right
         const shelf1 = new Bookshelf(this, 10, true);
@@ -106,9 +120,29 @@ class PlayScene extends Scene {
         const cat3 = new Cat(this, -30, 0, 160, 0, true, angle);
         const dl3 = new Desk2(this, -60, 160);        
 
+
+        const tr1 = new Desk3(this, -60, 190);
+        const tr2 = new Desk3(this, -60, 210);
+
+
         const boardR1 = new Board(this, -30, 175);
         const boardR2 = new Board(this, -50, 175);
+        
+        const shelf2R = new Bookshelf2(this, 240, true);
+        const shelf2R1 = new Bookshelf2(this, 260, true);
+        const shelf2R2 = new Bookshelf2(this, 280, true);
+        const shelf2R3 = new Bookshelf2(this, 300, true);
+        const dl4 = new Desk2(this, -60, 340);
+        const chairL4 = new Chair(this, -30, 330, cangle);  
+        const chairL5 = new Chair(this, -45, 330, cangle);   
+        const chairL6 = new Chair(this, -60, 330, cangle); 
 
+        const boardR3 = new Board(this, -30, 360);
+        const boardR4 = new Board(this, -50, 360);
+
+        
+
+        //------------------------------------------------------------------------------
         // Fire
         const fireMiddle = new Fire(this, 1, {x:0, y:1, z:-7});
         const fireLeft = new Fire(this, 2, {x:2, y:1, z:-12});
@@ -139,13 +173,16 @@ class PlayScene extends Scene {
         this.add(trail1, trail2, trail3);
         this.add(fireMiddle, fireLeft, fireRight);
         this.add(desk1, desk2);
-        this.add(boardL1, boardL2, boardR1, boardR2);
+        this.add(boardL1, boardL2, boardR1, boardR2, boardR3, boardR4);
         this.add(mag, cat, cat2, cat3);
-        this.add(dl1, dl2, dl3);
+        this.add(dl1, dl2, dl3, dl4);
         this.add(d1, d2);
+        this.add(tr1, tr2, tl1, tl2);
+        this.add(shelfLeft1, shelfLeft2, shelfLeft3);
         this.add(shelf1, shelf2, shelf3, shelf4, ls1, ls2, ls3, ls4, ls5, ls6);
+        this.add(shelf2R1, shelf2R2, shelf2R3, shelf2R);
         this.add(wall1, wall2, wall3, wall4, back);
-        this.add(chairL1, chairL2, chairL3, chairR1, chairR2, chairR3);
+        this.add(chairL1, chairL2, chairL3, chairR1, chairR2, chairR3, chairL4, chairL5, chairL6);
         // add land fragments       
         this.add(land1, land2, land3, land4);
         this.add(t1, t2, t3, t4);
@@ -170,7 +207,7 @@ class PlayScene extends Scene {
         for (const obj of updateList) {
             if (obj instanceof Obstacle || obj instanceof ScorePickup || obj instanceof Desk || obj instanceof Board
                 || obj instanceof Bookshelf || obj instanceof Magician || obj instanceof Desk2 || obj instanceof Cat
-                || obj instanceof Chair) {
+                || obj instanceof Chair || obj instanceof Bookshelf2 || obj instanceof Desk3) {
                 obj.resetZ();
             }
             if (obj instanceof Obstacle) {
